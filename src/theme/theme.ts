@@ -18,6 +18,7 @@ const config = defineConfig({
           
           // Accent colors from your old system
           900: { value: "#107c7c" }, // accent (teal)
+          920: { value: "#0d6a6a" }, // darkAccent
           950: { value: "#e6f2f2" }, // lightAccent
           1000: { value: "#b3dddd" }, // mediumAccent
           
@@ -60,6 +61,7 @@ const config = defineConfig({
           
           // Accent tokens
           accent: { value: "{colors.brand.900}" },       // main accent (teal)
+          accentDark: { value: "{colors.brand.920}" },   // dark accent
           accentLight: { value: "{colors.brand.950}" },  // light accent
           accentMedium: { value: "{colors.brand.1000}" }, // medium accent
           
