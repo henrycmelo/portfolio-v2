@@ -29,7 +29,6 @@ export default function Projects() {
                 setLoading(true);
                 setError(null);
                 const data = await projectsAPI.getAllProjects();
-                console.log(data)
                 setProjects(data);
             } catch (err) {
                 setError('Failed to fetch projects');
