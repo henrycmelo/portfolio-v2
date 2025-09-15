@@ -3,7 +3,7 @@ import { Box } from "@chakra-ui/react";
 export default function SectionWrapper({ 
   id, 
   children, 
-  minHeight = "100vh" 
+  minHeight = 'auto'
 }: { 
   id: string
   children: React.ReactNode
@@ -15,6 +15,7 @@ export default function SectionWrapper({
       minH={minHeight}
       px={{ base: 6, md: 12, lg: 16 }}
       py={{ base: 8, md: 12 }}
+      border={"1px solid red"}
     >
       {children}
     </Box>
