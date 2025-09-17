@@ -57,6 +57,7 @@ export default function Projects() {
             {projects.map((project) => (
                 <ProjectShowcaseCard key={project.id} company_name={project.company_name} company_logo_url={project.company_logo_url} title={project.title} highlight={project.highlight} mockup_url={project.mockup_url} problem={project.problem} solution={project.solution} benefit={project.benefit} role={project.role} />
             ))}
+            
         </Box>
     );
 }

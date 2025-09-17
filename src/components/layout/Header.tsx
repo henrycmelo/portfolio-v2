@@ -40,7 +40,7 @@ export default function SiteHeader() {
             <Text>New York, NY</Text>
           </HStack>
           
-          <Text>
+          <Text >
             {currentTime.toLocaleString('en-US', {
               timeZone: 'America/New_York',
               hour: '2-digit',
