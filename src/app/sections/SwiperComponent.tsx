@@ -1,63 +1,82 @@
 "use client";
 
-import { Box } from "@chakra-ui/react";
-import React from 'react';
+import { Box, Text, Spinner } from "@chakra-ui/react";
+import React, { useEffect, useState } from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import ReviewCard from "@/components/common/ReviewCard";
 import "@splidejs/react-splide/css";
-// Sample review data
-const reviewsData = [
-  {
-    id: 1,
-    name: "Sarah Johnson",
-    role: "Senior Product Manager",
-    company: "TechCorp",
-    avatar: "https://bit.ly/sage-adebayo",
-    content:
-      "This service completely transformed our workflow. The team's expertise and dedication to quality is unmatched. I've never experienced such seamless collaboration.",
-    linkedinUrl: "https://linkedin.com/in/sarahjohnson",
-  },
-  {
-    id: 2,
-    name: "Michael Chen",
-    role: "CTO",
-    company: "StartupHub",
-    avatar: "https://bit.ly/ryan-florence",
-    content:
-      "Outstanding results! The technical implementation was flawless and delivered ahead of schedule. Their innovative approach solved problems we didn't even know we had.",
-    linkedinUrl: "https://linkedin.com/in/michaelchen",
-  },
-  {
-    id: 3,
-    name: "Emily Rodriguez",
-    role: "Marketing Director",
-    company: "GrowthCo",
-    avatar: "https://bit.ly/prosper-baba",
-    content:
-      "The ROI we've seen is incredible. Their strategic insights and execution have driven our revenue up by 40% in just 6 months. Highly recommend!",
-    linkedinUrl: "https://linkedin.com/in/emilyrodriguez",
-  },
-  {
-    id: 4,
-    name: "David Park",
-    role: "Founder & CEO",
-    company: "InnovateLabs",
-    avatar: "https://bit.ly/kent-c-dodds",
-    content:
-      "Working with this team was a game-changer for our startup. Their expertise in scaling businesses is evident in every interaction. Professional and results-driven.",
-    linkedinUrl: "https://linkedin.com/in/davidpark",
-  },
-];
+import { reviewsAPI, type DatabaseReview } from "@/api/reviewsAPI";
+
 const SwiperComponent = () => {
+  const [reviews, setReviews] = useState<DatabaseReview[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const data = await reviewsAPI.getAllReviews();
+        setReviews(data);
+      } catch (err) {
+        console.error('Error fetching reviews:', err);
+        setError('Failed to fetch reviews');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchReviews();
+  }, []);
+   if (isLoading) return (
+          <Box textAlign={"center"} py={10} px={6} color={'brand.secondary'}>
+              <Spinner size="xl" />
+              <Text mt={4} >Loading reviews...</Text>
+          </Box>
+      );
+      if (error) return (
+          <Box textAlign={"center"} py={10} px={6}>
+              <Text color="red.500" fontSize="lg">{error}</Text>
+          </Box>
+      )
   return (
-    <Box p={6}>
-    <Splide aria-label="Customer Reviews" options={{ perPage: 2}}>
-      {reviewsData.map((review) => (
-        <SplideSlide key={review.id}>
-          <ReviewCard review={review} />
-        </SplideSlide>
-      ))}
-    </Splide>
+    <Box p={6} minH="400px" display="flex" alignItems="center">
+      <Splide
+        aria-label="Customer Reviews"
+        options={{
+          perPage: 1,
+          rewind: true,
+          autoplay: true,
+          interval: 5000,
+          pauseOnHover: true,
+          pauseOnFocus: true,
+          arrows: true,
+          pagination: true,
+          gap: '1rem',
+          breakpoints: {
+            768: {
+              perPage: 1,
+              arrows: false
+            }
+          }
+        }}
+      >
+        {reviews.map((review) => (
+          <SplideSlide key={review.id}>
+            <Box px={4} py={2} display="flex" justifyContent="center" alignItems="center" minH="350px">
+              <ReviewCard
+                review={{
+                  name: review.reviewer_name,
+                  content: review.content,
+                  role: review.reviewer_role,
+                  company: review.company,
+                  linkedinUrl: review.linkedin_url,
+                }}
+              />
+            </Box>
+          </SplideSlide>
+        ))}
+      </Splide>
     </Box>
   );
 };
