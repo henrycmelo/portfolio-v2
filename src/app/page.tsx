@@ -8,7 +8,7 @@ import ProjectShowcaseCard from "../components/common/ProjectShowcaseCard";
 import { Text } from "@chakra-ui/react";
 import Projects from "./sections/Projects";
 import SwiperComponent from "./sections/SwiperComponent";
-import ReviewCard from "@/components/common/ReviewCard";
+import CareerTimeline from "./sections/CareerTimeline";
 
 
 export default function Home() {
@@ -38,6 +38,7 @@ export default function Home() {
           'brand.primary'}>
           Career Timeline
         </Text>
+        <CareerTimeline />
        
       </SectionWrapper>
       <SectionWrapper id="projects">

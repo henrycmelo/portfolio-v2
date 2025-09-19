@@ -34,6 +34,68 @@ a {
   color: inherit;
   text-decoration: none;
 }
+.splide__arrow {
+    background: var(--chakra-colors-brand-divider) !important; 
+    
+  }
+  .splide__arrow svg {
+    fill: var(--chakra-colors-brand-secondary) !important;;
+  }
+
+  .splide__pagination__page {
+    background: var(--chakra-colors-brand-secondary) !important; 
+  }
+  .splide__pagination__page.is-active {
+    background: var(--chakra-colors-brand-accent) !important; 
+  }
+
+/* Career Timeline Styles */
+.vertical-timeline-element-content {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.vertical-timeline-element-content-arrow {
+  border-right: 7px solid #e2e8f0 !important;
+}
+
+.vertical-timeline-element-date {
+  color: #718096 !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+}
+
+.vertical-timeline::before {
+  background: var(--chakra-colors-brand-divider) !important;
+  width: 3px !important;
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 1170px) {
+  .vertical-timeline-element-date {
+    color: #718096 !important;
+    font-size: 13px !important;
+    margin-top: 10px !important;
+  }
+
+  .vertical-timeline-element-content {
+    margin-left: 40px !important;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .vertical-timeline-element-content {
+    margin-left: 30px !important;
+  }
+
+  .vertical-timeline-element-icon {
+    width: 40px !important;
+    height: 40px !important;
+    left: 5px !important;
+  }
+}
 
 @media (prefers-color-scheme: dark) {
   html {
