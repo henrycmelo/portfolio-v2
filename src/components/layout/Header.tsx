@@ -7,15 +7,22 @@ import {
   Icon,
   Button,
 } from "@chakra-ui/react";
-import Link from "next/link";
-import { Tooltip } from "@/components/ui/tooltip";
-import socialsData from "@/data/socials";
-import FlexibleButton from "../button/FlexibleButton";
+
 import { IoChevronDownCircleOutline, IoDownload, IoPin } from "react-icons/io5";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import { usePathname } from "next/navigation";
+import FlexibleButton from "../button/FlexibleButton";
+import { log } from "console";
 
 export default function SiteHeader() {
   const [currentTime, setCurrentTime] = useState(new Date())
+  const pathname = usePathname();
+  const isAdminRoute = pathname?.startsWith('/admin');
+  const { isAuthenticated, logout } = useAuth();
+
+
+  
 
   useEffect(()=>{
     const timer = setInterval(()=> setCurrentTime(new Date()), 1000)
@@ -29,9 +36,14 @@ export default function SiteHeader() {
       borderBottom="1px solid"
       borderColor="brand.divider"
       alignContent={"center"}
-      justifyItems="right"
+      justifyItems="stretch"
     >
-      <Flex justify="flex-end" align="center" py={2}>
+      <Flex justify="space-between" align="center" py={2}>
+        {isAdminRoute && isAuthenticated && (
+          <Text fontSize='xl' fontWeight='bold' color='brand.primary'>
+            Portfolio Admin Dashboard
+          </Text>
+        )}
         <HStack gap={3} color="brand.textMuted" fontSize="md">
           <HStack gap={1}>
             <Icon>
@@ -53,6 +65,12 @@ export default function SiteHeader() {
           <Text fontSize="md">
             Eastern Time
           </Text>
+
+          {isAdminRoute && isAuthenticated && (
+            <FlexibleButton variant='ghost' onClick={logout} color={"brand.error"}>
+              Logout
+            </FlexibleButton>
+          )}
         </HStack>
       </Flex>
     </Box>

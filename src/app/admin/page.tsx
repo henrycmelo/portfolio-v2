@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -9,37 +9,51 @@ import {
   Text,
   Alert,
   Field,
-} from '@chakra-ui/react';
-import ProjectManagement from '@/components/admin/ProjectManagement';
-import { toaster } from "@/components/ui/toaster"
-
-const ADMIN_PASSWORD = 'portfolio2024!'; // In production, use environment variables
+  Spinner,
+} from "@chakra-ui/react";
+import ProjectManagement from "@/components/admin/ProjectManagement";
+import { toaster } from "@/components/ui/toaster";
+import FlexibleButton from "@/components/button/FlexibleButton";
+import { useAuth } from "@/components/contexts/AuthContext";
+import SectionWrapper from "@/components/common/SectionWrapper";
 
 export default function AdminPage() {
-  const [password, setPassword] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [error, setError] = useState('');
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const { isAuthenticated, login, isLoggingIn, isLoading } = useAuth();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      setIsAuthenticated(true);
-      setError('');
+    setError("");
+    const success = await login(password);
+    if (!success) {
+      setError("Invalid password");
+      setPassword("");
       toaster.create({
-        title: 'Welcome to Admin Dashboard',
-        status: 'success',
-        duration: 3000,
-      });
-    } else {
-      setError('Invalid password');
-      toaster.create({
-        title: 'Access Denied',
-        description: 'Invalid password',
-        status: 'error',
+        title: "Access Denied",
+        description: "Invalid password",
+        type: "error",
         duration: 3000,
       });
     }
   };
+
+  if (isLoading) {
+    return (
+      <Box
+        minH="100vh"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        bg="gray.50"
+      >
+        <VStack gap={4}>
+          <Spinner size="xl" color="brand.primary" />
+          <Text color="brand.secondary">Loading...</Text>
+        </VStack>
+      </Box>
+    );
+  }
 
   if (!isAuthenticated) {
     return (
@@ -51,20 +65,21 @@ export default function AdminPage() {
         bg="gray.50"
       >
         <Box
-          bg="white"
+          bg="brand.white"
           p={8}
-          rounded="lg"
-          shadow="md"
+          borderRadius="md"
+          boxShadow="0 25px 50px -12px rgba(0, 0, 0, 0.15)"
+          borderColor="brand.divider"
           w="full"
           maxW="md"
         >
-          <VStack spacing={6}>
+          <VStack gap={6}>
             <Text fontSize="2xl" fontWeight="bold" color="brand.primary">
               Admin Dashboard
             </Text>
 
-            <form onSubmit={handleLogin} style={{ width: '100%' }}>
-              <VStack gap={4} w="full">
+            <form onSubmit={handleLogin} style={{ width: "100%" }}>
+              <VStack gap={4} w="full" color={"brand.secondary"}>
                 <Field.Root required>
                   <Field.Label>
                     Password <Field.RequiredIndicator />
@@ -74,6 +89,7 @@ export default function AdminPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter admin password"
+                    p={2}
                   />
                 </Field.Root>
 
@@ -84,14 +100,15 @@ export default function AdminPage() {
                   </Alert.Root>
                 )}
 
-                <Button
-                  type="submit"
-                  colorPalette="blue"
-                  w="full"
-                  size="lg"
-                >
-                  Login
-                </Button>
+                <FlexibleButton type="submit" w="full">
+                  {isLoggingIn ? (
+                    <>
+                      <Spinner size={"sm"} /> Logging in
+                    </>
+                  ) : (
+                    "Login"
+                  )}
+                </FlexibleButton>
               </VStack>
             </form>
           </VStack>
@@ -101,22 +118,8 @@ export default function AdminPage() {
   }
 
   return (
-    <Box minH="100vh" bg="gray.50">
-      <Box
-        bg="white"
-        borderBottom="1px"
-        borderColor="gray.200"
-        px={6}
-        py={4}
-      >
-        <Text fontSize="xl" fontWeight="bold" color="brand.primary">
-          Portfolio Admin Dashboard
-        </Text>
-      </Box>
-
-      <Box p={6}>
-        <ProjectManagement />
-      </Box>
-    </Box>
+    <SectionWrapper id="admin-dashboard" minHeight="100vh">
+      <ProjectManagement />
+    </SectionWrapper>
   );
 }

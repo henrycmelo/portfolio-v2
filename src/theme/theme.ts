@@ -4,8 +4,9 @@ const config = defineConfig({
   theme: {
     tokens: {
       colors: {
+        ...defaultConfig.theme?.tokens?.colors,
         brand: {
-          // Gray scale from your old system
+          
           50: { value: "#F8F9FA" },  // gray.50
           100: { value: "#E9ECEF" }, // gray.100  
           200: { value: "#DEE2E6" }, // gray.200
@@ -16,7 +17,7 @@ const config = defineConfig({
           700: { value: "#343A40" }, // gray.700
           800: { value: "#212529" }, // gray.800
           
-          // Accent colors from your old system
+          // Accent colors
           900: { value: "#107c7c" }, // accent (teal)
           920: { value: "#0d6a6a" }, // darkAccent
           950: { value: "#e6f2f2" }, // lightAccent
@@ -35,6 +36,7 @@ const config = defineConfig({
     },
     semanticTokens: {
       colors: {
+        ...defaultConfig.theme?.semanticTokens?.colors,
         brand: {
           // Primary colors (your main brand colors)
           primary: { value: "{colors.brand.800}" },     // #212529 (primary black)

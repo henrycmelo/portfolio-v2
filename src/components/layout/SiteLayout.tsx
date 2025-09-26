@@ -17,7 +17,7 @@ export default function SiteLayout({
     return (
       <Box h="100vh" display="flex" flexDirection="column">
         <SiteHeader />
-        <Box flex="1" overflow="auto">
+        <Box flex="1" overflow="auto" bg={"brand.bg"}>
           {children}
         </Box>
       </Box>
