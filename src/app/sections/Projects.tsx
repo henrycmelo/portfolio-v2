@@ -9,13 +9,11 @@ export interface Project {
   company_name: string;
   company_logo_url: string;
   title: string;
-  highlight: string;
   mockup_url: string;
   problem: string;
   solution: string;
   benefit: string;
   role: string;
-
 }
 
 export default function Projects() {
@@ -55,9 +53,9 @@ export default function Projects() {
     return (
         <Box>
             {projects.map((project) => (
-                <ProjectShowcaseCard key={project.id} company_name={project.company_name} company_logo_url={project.company_logo_url} title={project.title} highlight={project.highlight} mockup_url={project.mockup_url} problem={project.problem} solution={project.solution} benefit={project.benefit} role={project.role} />
+                <ProjectShowcaseCard key={project.id} company_name={project.company_name} company_logo_url={project.company_logo_url} title={project.title} mockup_url={project.mockup_url} problem={project.problem} solution={project.solution} benefit={project.benefit} role={project.role} />
             ))}
-            
+
         </Box>
     );
 }

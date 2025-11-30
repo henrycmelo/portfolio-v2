@@ -29,6 +29,9 @@ export const Textarea = ({
     <ChakraTextarea
       borderColor={COLORS.ui.inputBorder}
       borderRadius={BORDERS.radius.md}
+      _placeholder={{
+        color: COLORS.ui.placeholderText,
+      }}
       _focus={{
         borderColor: COLORS.ui.inputFocus,
         boxShadow: `0 0 0 1px ${COLORS.ui.inputFocus}`,

@@ -92,7 +92,7 @@ export const UI_COLORS = {
 
   // Placeholders
   placeholderBg: GRAY_COLORS[100],
-  placeholderText: GRAY_COLORS[500],
+  placeholderText: GRAY_COLORS[300],
   placeholderBorder: GRAY_COLORS[200],
 
   // Alerts

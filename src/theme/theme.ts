@@ -46,7 +46,7 @@ const config = defineConfig({
           bg: { value: "{colors.brand.50}" },           // primary background
           bgSecondary: { value: "{colors.brand.100}" }, // secondary background  
           bgTertiary: { value: "{colors.brand.200}" },  // tertiary background
-          bgButton: { value: "{colors.brand.800}" },    // button background
+          bgButton: { value: "{colors.brand.900}" },    // button background
           bgAccent: { value: "{colors.brand.950}" },    // light accent background
           
           // Text tokens (mapped from your semantic.text)

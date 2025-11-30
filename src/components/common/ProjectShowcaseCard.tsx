@@ -12,7 +12,6 @@ interface ProjectShowcaseProps {
   company_name: string;
   company_logo_url: string;
   title: string;
-  highlight: string;
   mockup_url: string;
   problem: string;
   solution: string;
@@ -24,7 +23,6 @@ export default function ProjectShowcaseCard({
   company_name,
   company_logo_url,
   title,
-  highlight,
   mockup_url,
   problem,
   solution,
@@ -61,10 +59,6 @@ export default function ProjectShowcaseCard({
           color={COLORS.brand.primary}
         >
           {title}
-          <br />
-          <Text as="span" color={COLORS.brand.accent}>
-            {highlight}
-          </Text>
         </Text>
       </VStack>
 

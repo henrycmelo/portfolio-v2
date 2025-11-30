@@ -16,8 +16,10 @@ import { toaster } from "@/components/ui/toaster";
 import FlexibleButton from "@/components/button/FlexibleButton";
 import { useAuth } from "@/components/contexts/AuthContext";
 import SectionWrapper from "@/components/common/SectionWrapper";
+import CareerTimelineManagement from "@/components/admin/CareerTimelineManagement";
 
 export default function AdminPage() {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { isAuthenticated, login, isLoggingIn, isLoading } = useAuth();
@@ -25,13 +27,13 @@ export default function AdminPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    const success = await login(password);
+    const success = await login(email, password);
     if (!success) {
-      setError("Invalid password");
+      setError("Invalid email or password");
       setPassword("");
       toaster.create({
         title: "Access Denied",
-        description: "Invalid password",
+        description: "Invalid email or password",
         type: "error",
         duration: 3000,
       });
@@ -82,6 +84,19 @@ export default function AdminPage() {
               <VStack gap={4} w="full" color={"brand.secondary"}>
                 <Field.Root required>
                   <Field.Label>
+                    Email <Field.RequiredIndicator />
+                  </Field.Label>
+                  <Input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter admin email"
+                    p={2}
+                  />
+                </Field.Root>
+
+                <Field.Root required>
+                  <Field.Label>
                     Password <Field.RequiredIndicator />
                   </Field.Label>
                   <Input
@@ -100,7 +115,7 @@ export default function AdminPage() {
                   </Alert.Root>
                 )}
 
-                <FlexibleButton type="submit" w="full">
+                <FlexibleButton type="submit" w="full" disabled={isLoggingIn}>
                   {isLoggingIn ? (
                     <>
                       <Spinner size={"sm"} /> Logging in
@@ -118,8 +133,14 @@ export default function AdminPage() {
   }
 
   return (
+    <>
     <SectionWrapper id="admin-dashboard" minHeight="100vh">
       <ProjectManagement />
     </SectionWrapper>
+    <SectionWrapper id="admin-career" minHeight="100vh">
+      <CareerTimelineManagement/>
+    </SectionWrapper>
+    </>
+
   );
 }

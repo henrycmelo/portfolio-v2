@@ -1,49 +1,43 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useId } from 'react';
 import {
   Box,
   Button,
   VStack,
   HStack,
   Image,
-  Progress,
   IconButton,
 } from '@chakra-ui/react';
 import { Input, Text } from '@/design-system/atoms';
 import { COLORS, SPACING, TYPOGRAPHY, BORDERS } from '@/design-system/foundations';
-import { IoCloudUpload, IoImage, IoTrash, IoRefresh } from 'react-icons/io5';
-import { supabase } from '@/lib/supabase';
-import { toaster } from '@/components/ui/toaster';
+import { IoCloudUpload, IoTrash, IoRefresh } from 'react-icons/io5';
 
 interface ImageUploadProps {
   currentImageUrl?: string;
-  onImageUpload: (url: string) => void;
+  onImageSelect: (file: File | null, previewUrl: string) => void;
   onImageDelete?: () => void;
-  bucketName?: string;
-  folder?: string;
   label?: string;
 }
 
 export default function ImageUpload({
   currentImageUrl,
-  onImageUpload,
+  onImageSelect,
   onImageDelete,
-  bucketName = 'portfolio-images',
-  folder = 'mockups',
   label = 'Upload Image'
 }: ImageUploadProps) {
-  const [uploading, setUploading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [deleting, setDeleting] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string>(currentImageUrl || '');
+  const inputId = useId(); // Generate unique ID for this instance
 
-  const uploadImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  // Update preview when currentImageUrl changes from parent
+  useEffect(() => {
+    setPreviewUrl(currentImageUrl || '');
+  }, [currentImageUrl]);
+
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
-      setUploading(true);
-      setUploadProgress(0);
-
       if (!event.target.files || event.target.files.length === 0) {
-        throw new Error('You must select an image to upload');
+        return;
       }
 
       const file = event.target.files[0];
@@ -58,56 +52,17 @@ export default function ImageUpload({
         throw new Error('Image size must be less than 5MB');
       }
 
-      // Generate unique filename
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
-      const filePath = folder ? `${folder}/${fileName}` : fileName;
+      // Create preview URL
+      const objectUrl = URL.createObjectURL(file);
+      setPreviewUrl(objectUrl);
 
-      // Simulate progress for user feedback
-      const progressInterval = setInterval(() => {
-        setUploadProgress(prev => Math.min(prev + 10, 90));
-      }, 100);
-
-      // Upload file to Supabase storage
-      const { data, error } = await supabase.storage
-        .from(bucketName)
-        .upload(filePath, file, {
-          cacheControl: '3600',
-          upsert: false
-        });
-
-      clearInterval(progressInterval);
-      setUploadProgress(100);
-
-      if (error) {
-        throw error;
-      }
-
-      // Get public URL
-      const { data: { publicUrl } } = supabase.storage
-        .from(bucketName)
-        .getPublicUrl(filePath);
-
-      onImageUpload(publicUrl);
-
-      toaster.create({
-        title: 'Success',
-        description: 'Image uploaded successfully',
-        type: 'success',
-        duration: 3000,
-      });
+      // Pass file and preview URL to parent
+      onImageSelect(file, objectUrl);
 
     } catch (error: any) {
-      console.error('Error uploading image:', error);
-      toaster.create({
-        title: 'Upload Error',
-        description: error.message || 'Failed to upload image',
-        type: 'error',
-        duration: 5000,
-      });
+      console.error('Error selecting image:', error);
+      alert(error.message || 'Failed to select image');
     } finally {
-      setUploading(false);
-      setUploadProgress(0);
       // Reset input
       if (event.target) {
         event.target.value = '';
@@ -115,75 +70,39 @@ export default function ImageUpload({
     }
   };
 
-  const deleteImage = async () => {
-    if (!currentImageUrl) return;
+  const handleDelete = () => {
+    // Revoke preview URL to free memory
+    if (previewUrl && previewUrl.startsWith('blob:')) {
+      URL.revokeObjectURL(previewUrl);
+    }
+    setPreviewUrl('');
 
-    try {
-      setDeleting(true);
-
-      // Extract file path from URL
-      const url = new URL(currentImageUrl);
-      const pathParts = url.pathname.split('/');
-      const filePath = pathParts.slice(-2).join('/'); // Get last two parts (folder/filename)
-
-      // Delete from Supabase storage
-      const { error } = await supabase.storage
-        .from(bucketName)
-        .remove([filePath]);
-
-      if (error) {
-        throw error;
-      }
-
-      // Call the delete callback
-      if (onImageDelete) {
-        onImageDelete();
-      }
-
-      toaster.create({
-        title: 'Success',
-        description: 'Image deleted successfully',
-        type: 'success',
-        duration: 3000,
-      });
-
-    } catch (error: any) {
-      console.error('Error deleting image:', error);
-      toaster.create({
-        title: 'Delete Error',
-        description: error.message || 'Failed to delete image',
-        type: 'error',
-        duration: 5000,
-      });
-    } finally {
-      setDeleting(false);
+    if (onImageDelete) {
+      onImageDelete();
     }
   };
 
   return (
     <VStack gap={SPACING.component.gap.md} align="stretch">
-      {currentImageUrl && (
+      {previewUrl && (
         <Box>
           <HStack justify="space-between" align="center" mb={SPACING.scale.xs}>
             <Text fontSize={TYPOGRAPHY.sizes.sm} color={COLORS.gray[600]}>
-              Current Image:
+              {previewUrl.startsWith('blob:') ? 'Selected Image:' : 'Current Image:'}
             </Text>
-            <HStack gap={1}>
-              <IconButton
-                aria-label="Delete image"
-                size="sm"
-                variant="outline"
-                colorPalette="red"
-                onClick={deleteImage}
-                disabled={deleting || uploading}
-              >
-                <IoTrash />
-              </IconButton>
-            </HStack>
+            <IconButton
+              aria-label="Delete image"
+              size="sm"
+              variant="outline"
+              colorPalette="red"
+              onClick={handleDelete}
+            >
+              <IoTrash />
+            </IconButton>
           </HStack>
           <Image
-            src={currentImageUrl}
-            alt="Current image"
+            src={previewUrl}
+            alt="Preview"
             maxH="200px"
             maxW="300px"
             objectFit="contain"
@@ -198,38 +117,21 @@ export default function ImageUpload({
         <Input
           type="file"
           accept="image/*"
-          onChange={uploadImage}
-          disabled={uploading}
+          onChange={handleFileSelect}
           display="none"
-          id="image-upload"
+          id={inputId}
         />
         <Button
           as="label"
-          htmlFor="image-upload"
+          htmlFor={inputId}
           cursor="pointer"
-          disabled={uploading || deleting}
           w="full"
           variant="outline"
         >
-          {currentImageUrl ? <IoRefresh /> : <IoCloudUpload />}
-          {uploading
-            ? 'Uploading...'
-            : currentImageUrl
-              ? 'Replace Image'
-              : label
-          }
+          {previewUrl ? <IoRefresh /> : <IoCloudUpload />}
+          {previewUrl ? 'Replace Image' : label}
         </Button>
       </Box>
-
-      {(uploading || deleting) && (
-        <Box>
-          {uploading && <Progress value={uploadProgress} size="sm" />}
-          <Text fontSize={TYPOGRAPHY.sizes.xs} color={COLORS.gray[600]} mt={1}>
-            {uploading && `Uploading... ${uploadProgress}%`}
-            {deleting && 'Deleting image...'}
-          </Text>
-        </Box>
-      )}
 
       <Text fontSize={TYPOGRAPHY.sizes.xs} color={COLORS.gray[500]}>
         Supported formats: JPG, PNG, WebP. Max size: 5MB

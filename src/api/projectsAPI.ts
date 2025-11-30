@@ -5,7 +5,6 @@ export interface Project {
   company_name: string;
   company_logo_url: string;
   title: string;
-  highlight: string;
   mockup_url: string;
   problem: string;
   solution: string;
