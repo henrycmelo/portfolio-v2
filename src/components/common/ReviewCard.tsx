@@ -2,17 +2,17 @@
 
 import {
   Box,
-  Text,
   VStack,
   Card,
   Link,
-  Flex,
   Icon,
   Button,
 } from "@chakra-ui/react";
 import { IoMdQuote } from "react-icons/io";
 import { IoLogoLinkedin } from "react-icons/io5";
 import { useState } from "react";
+import { Text } from "@/design-system/atoms";
+import { COLORS, SPACING, BORDERS, SHADOWS, TYPOGRAPHY } from "@/design-system/foundations";
 
 type Review = {
   name: string;
@@ -29,8 +29,8 @@ const ReviewCard = ({ review }: { review: Review }) => {
 
   if (!review) {
     return (
-      <Box p={6} textAlign="center">
-        <Text color="brand.secondary">No review data available</Text>
+      <Box p={SPACING.component.padding.card.y} textAlign="center">
+        <Text color={COLORS.brand.secondary}>No review data available</Text>
       </Box>
     );
   }
@@ -45,11 +45,11 @@ const ReviewCard = ({ review }: { review: Review }) => {
       mx="auto"
       w={"full"}
       h="auto"
-      p={6}
-      boxShadow="0 25px 50px -12px rgba(0, 0, 0, 0.15)"
+      p={SPACING.component.padding.card.y}
+      boxShadow={SHADOWS.box.container}
       border="1px solid"
-      borderColor="brand.divider"
-      borderRadius="md"
+      borderColor={COLORS.ui.containerBorder}
+      borderRadius={BORDERS.radius.md}
       overflow="hidden"
       position="relative"
 >
@@ -57,30 +57,35 @@ const ReviewCard = ({ review }: { review: Review }) => {
         {/* Quote icon */}
         <Box
           position="absolute"
-          top={4}
-          right={4}
-          color="brand.bgAccent"
-          fontSize="2xl"
+          top={SPACING.component.gap.md}
+          right={SPACING.component.gap.md}
+          color={COLORS.brand.bgAccent}
+          fontSize={TYPOGRAPHY.sizes['2xl']}
         >
           <IoMdQuote />
         </Box>
 
-        <VStack align="start" gap={4}  justify="space-between">
+        <VStack align="start" gap={SPACING.component.gap.md} justify="space-between">
           {/* Review content */}
           <Box flex="1" overflow="hidden">
-            <Text fontSize="md" color="brand.textMuted" lineHeight="1.6" mb={2}>
+            <Text
+              fontSize={TYPOGRAPHY.sizes.md}
+              color={COLORS.brand.textMuted}
+              lineHeight={TYPOGRAPHY.lineHeights.relaxed}
+              mb={SPACING.scale.xs}
+            >
               "{displayContent || "No content available"}"
             </Text>
             {shouldTruncate && (
               <Button
                 variant="ghost"
                 size="sm"
-                color="brand.accent"
-                fontWeight="500"
+                color={COLORS.brand.accent}
+                fontWeight={TYPOGRAPHY.weights.medium}
                 p={0}
                 h="auto"
                 minH="auto"
-                _hover={{ color: "brand.primary" }}
+                _hover={{ color: COLORS.brand.primary }}
                 onClick={() => setIsExpanded(!isExpanded)}
               >
                 {isExpanded ? "Show less" : "Show more"}
@@ -90,15 +95,23 @@ const ReviewCard = ({ review }: { review: Review }) => {
 
           {/* Reviewer info and LinkedIn link */}
           <VStack align="start" gap={1} w="full" mt="auto">
-            <Text fontSize="lg" fontWeight="700" color="brand.accent">
+            <Text
+              fontSize={TYPOGRAPHY.sizes.lg}
+              fontWeight={TYPOGRAPHY.weights.bold}
+              color={COLORS.brand.accent}
+            >
               {review.name}
             </Text>
 
-            <Text fontSize="sm" color="brand.secondary">
+            <Text fontSize={TYPOGRAPHY.sizes.sm} color={COLORS.brand.secondary}>
               {review.role}
             </Text>
 
-            <Text fontSize="sm" color="brand.secondary" mb={2}>
+            <Text
+              fontSize={TYPOGRAPHY.sizes.sm}
+              color={COLORS.brand.secondary}
+              mb={SPACING.scale.xs}
+            >
               {review.company}
             </Text>
 
@@ -111,8 +124,8 @@ const ReviewCard = ({ review }: { review: Review }) => {
             >
               <Icon
                 size={"md"}
-                color="brand.secondary"
-                _hover={{ color: "brand.accent" }}
+                color={COLORS.brand.secondary}
+                _hover={{ color: COLORS.brand.accent }}
               >
                 <IoLogoLinkedin />
               </Icon>

@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Flex } from "@chakra-ui/react";
+import { COLORS } from "@/design-system/foundations";
 import { usePathname } from "next/navigation";
 import Sidebar from "./SideBar";
 import SiteHeader from "./Header";
@@ -17,7 +18,7 @@ export default function SiteLayout({
     return (
       <Box h="100vh" display="flex" flexDirection="column">
         <SiteHeader />
-        <Box flex="1" overflow="auto" bg={"brand.bg"}>
+        <Box flex="1" overflow="auto" bg={COLORS.brand.bg}>
           {children}
         </Box>
       </Box>
@@ -25,13 +26,13 @@ export default function SiteLayout({
   }
 
   return (
-    <Flex h="100vh" >
+    <Flex h="100vh">
       <Sidebar />
 
-      <Box flex="1" display="flex" flexDirection="column" >
+      <Box flex="1" display="flex" flexDirection="column">
         <SiteHeader />
 
-        <Box flex="1" overflow="auto" bg={"brand.bg"}>
+        <Box flex="1" overflow="auto" bg={COLORS.brand.bg}>
           {children}
         </Box>
       </Box>

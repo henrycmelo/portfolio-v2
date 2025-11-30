@@ -3,7 +3,6 @@
 import {
   Box,
   VStack,
-  Text,
   Icon,
   HStack,
   Flex,
@@ -11,6 +10,8 @@ import {
   IconButton,
   Stack
 } from "@chakra-ui/react";
+import { Text } from "@/design-system/atoms";
+import { COLORS, SPACING, TYPOGRAPHY, BORDERS } from "@/design-system/foundations";
 import { useState } from "react";
 import { Tooltip } from "@/components/ui/tooltip";
 import { usePathname } from "next/navigation";
@@ -29,9 +30,10 @@ export default function Sidebar() {
     <Box
       w={{ base: "60px", md: shouldShowSidebar ? "60px" : "300px" }}
       h="100vh"
-      bg="brand.white"
-      borderRight="1px solid"
-      borderColor="brand.divider"
+      bg={COLORS.brand.white}
+      borderRight={BORDERS.widths.thin}
+      borderRightStyle={BORDERS.styles.solid}
+      borderColor={COLORS.ui.containerBorder}
       position="relative"
     >
       <Box
@@ -48,19 +50,19 @@ export default function Sidebar() {
     
 
       <Flex
-        px={{ base: 2, md: shouldShowSidebar? 2: 6 }}
-        py={{ base: 4, md: shouldShowSidebar? 4 : 6 }}
-        gap={3}
+        px={{ base: SPACING.scale.xs, md: shouldShowSidebar? SPACING.scale.xs: SPACING.component.gap.lg }}
+        py={{ base: SPACING.component.gap.md, md: shouldShowSidebar? SPACING.component.gap.md : SPACING.component.gap.lg }}
+        gap={SPACING.scale.sm}
       >
         <Avatar.Root size="md">
           <Avatar.Fallback name="Segun Adebayo" />
           <Avatar.Image src="https://bit.ly/sage-adebayo" />
         </Avatar.Root>
         <Box display={{ base: "none", md: shouldShowSidebar ? "none" : "block" }}>
-          <Text color="brand.primary" fontSize="sm">
+          <Text color={COLORS.brand.primary} fontSize={TYPOGRAPHY.sizes.sm}>
             Henry C. Melo
           </Text>
-          <Text fontSize="xs" color="brand.textMuted">
+          <Text fontSize={TYPOGRAPHY.sizes.xs} color={COLORS.brand.textMuted}>
             Product Designer | M.S HCI & UX
           </Text>
         </Box>
@@ -73,24 +75,24 @@ export default function Sidebar() {
 
           const menuButton = (
             <Box
-              borderRadius="md"
-              bg={isActive ? "brand.accent" : "transparent"}
-              _hover={{ bg: isActive ? "brand.selected" : "brand.divider" }}
+              borderRadius={BORDERS.radius.md}
+              bg={isActive ? COLORS.brand.accent : "transparent"}
+              _hover={{ bg: isActive ? COLORS.brand.selected : COLORS.brand.divider }}
             >
               <HStack
-                px={{ base: 2, md: 6 }}
-                py={{ base: 4, md: 3 }}
-                color={isActive ? "brand.white" : "brand.secondary"}
+                px={{ base: SPACING.scale.xs, md: SPACING.component.gap.lg }}
+                py={{ base: SPACING.component.gap.md, md: SPACING.scale.sm }}
+                color={isActive ? COLORS.brand.white : COLORS.brand.secondary}
                 cursor="pointer"
-                gap={3}
+                gap={SPACING.scale.sm}
                 justify={{ base: "center", md: shouldShowSidebar? "center":"flex-start" }}
               >
                 <Icon fontSize="20px">
                   <item.icon />
                 </Icon>
                 <Text
-                  fontSize="sm"
-                  fontWeight={isActive ? "500" : "400"}
+                  fontSize={TYPOGRAPHY.sizes.sm}
+                  fontWeight={isActive ? TYPOGRAPHY.weights.medium : TYPOGRAPHY.weights.normal}
                   display={{ base: "none", md: shouldShowSidebar? "none":"block" }}
                 >
                   {item.label}
@@ -121,11 +123,17 @@ export default function Sidebar() {
         bottom={0}
         left={0}
         right={0}
-        borderTop="1px solid"
-        borderColor="brand.divider"
-        p={{ base: 2, md: 3 }}
+        borderTop={BORDERS.widths.thin}
+        borderTopStyle={BORDERS.styles.solid}
+        borderColor={COLORS.ui.containerBorder}
+        p={{ base: SPACING.scale.xs, md: SPACING.scale.sm }}
       >
-        <Stack direction={{ base: "column", md: shouldShowSidebar ? "column" : "row" }} gap={5} justify={{ base: "center", md: "center" }} p={2}>
+        <Stack
+          direction={{ base: "column", md: shouldShowSidebar ? "column" : "row" }}
+          gap={SPACING.component.gap.md + 1}
+          justify={{ base: "center", md: "center" }}
+          p={SPACING.scale.xs}
+        >
           {socialsData.map((social) => {
             const IconComponent = social.icon;
             return (
@@ -135,10 +143,12 @@ export default function Sidebar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ textDecoration: "none" }}
-              
-                  
                 >
-                  <Icon size={"md"} color="brand.secondary" _hover={{color: "brand.accent"}}>
+                  <Icon
+                    size={"md"}
+                    color={COLORS.brand.secondary}
+                    _hover={{color: COLORS.brand.accent}}
+                  >
                     <IconComponent />
                   </Icon>
                 </Link>

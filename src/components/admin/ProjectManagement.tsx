@@ -3,12 +3,8 @@
 import { useState, useEffect } from "react";
 import {
   Box,
-  Button,
   VStack,
   HStack,
-  Text,
-  Input,
-  Textarea,
   Alert,
   Spinner,
   Image,
@@ -21,7 +17,6 @@ import {
   DialogHeader,
   DialogRoot,
   DialogTitle,
-  DialogTrigger,
 } from "@chakra-ui/react";
 import { Table } from "@chakra-ui/react";
 import { Field } from "@chakra-ui/react";
@@ -30,7 +25,14 @@ import { Project } from "@/api/projectsAPI";
 import { projectsAPI } from "@/api/projectsAPI";
 import { toaster } from "@/components/ui/toaster";
 import ImageUpload from "./ImageUpload";
-import FlexibleButton from "../button/FlexibleButton";
+// Design System Imports
+import { Button } from "@/design-system/atoms/Button";
+import { Text } from "@/design-system/atoms/Text";
+import { Input } from "@/design-system/atoms/Input";
+import { Textarea } from "@/design-system/atoms/Textarea";
+import { PageHeader } from "@/design-system/organisms/PageHeader";
+import { AdminPageTemplate } from "@/design-system/templates/AdminPageTemplate";
+import { COLORS, SPACING, SIZES, BORDERS, ANIMATIONS } from "@/design-system/foundations";
 
 export default function ProjectManagement() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -179,114 +181,95 @@ export default function ProjectManagement() {
 
   if (loading) {
     return (
-      <Box textAlign="center" py={10}>
-        <Spinner size="xl" />
-        <Text mt={4}>Loading projects...</Text>
+      <Box textAlign="center" py={SPACING.component.margin.sectionTop}>
+        <Spinner size={SIZES.component.spinner.xl} />
+        <Text variant="body" mt={SPACING.component.margin.elementBottom}>Loading projects...</Text>
       </Box>
     );
   }
 
   return (
-    <Box
-      maxW="5xl"
-      w="full"
-      bg="brand.white"
-      borderRadius="md"
-      boxShadow="0 25px 50px -12px rgba(0, 0, 0, 0.15)"
-      overflow="hidden"
-      border="1px solid"
-      borderColor="brand.divider"
-      mx="auto"
-    >
-      <Box p={{ base: 8, md: 12, lg: 16 }}>
-        <HStack justify="space-between" mb={6} align={"center"}>
-          <Text
-            fontSize={{ base: "lg", md: "xl" }}
-            fontWeight="bold"
-            color={"brand.primary"}
-          >
-            Project Management
-          </Text>
-
-          <FlexibleButton variant="solid" onClick={handleAdd}>
-            <IoAdd />
-            Add New Project
-          </FlexibleButton>
-        </HStack>
+    <AdminPageTemplate>
+      <PageHeader
+        title="Project Management"
+        actionLabel="Add New Project"
+        onAction={handleAdd}
+        actionIcon={<IoAdd />}
+      />
 
         {projects.length === 0 ? (
           <Alert.Root status="info">
             <Alert.Indicator />
             <Alert.Title>No projects found</Alert.Title>
             <Alert.Description>
-              Click "Add New Project" to create your first project.
+              Click &quot;Add New Project&quot; to create your first project.
             </Alert.Description>
           </Alert.Root>
         ) : (
           <Box
             overflowX="auto"
-            borderRadius="lg"
-            border="1px solid"
-            borderColor="brand.divider"
+            borderRadius={BORDERS.radius.lg}
+            border={BORDERS.widths.thin}
+            borderColor={COLORS.ui.containerBorder}
           >
             <Table.Root
               variant="outline"
-              color={"brand.secondary"}
+              color={COLORS.brand.secondary}
               size="md"
               style={{ tableLayout: "auto" }}
             >
-              <Table.Header bg={"brand.bg"}>
+              <Table.Header bg={COLORS.ui.tableHeaderBg}>
                 <Table.Row>
                   <Table.ColumnHeader
-                    fontWeight={"bold"}
-                    color="brand.primary"
-                    py={4}
-                    px={3}
+                    fontWeight="bold"
+                    color={COLORS.brand.primary}
+                    py={SPACING.table.header.paddingY}
+                    px={SPACING.table.header.paddingX}
                     verticalAlign="middle"
                   >
                     Logo
                   </Table.ColumnHeader>
                   <Table.ColumnHeader
-                    fontWeight={"bold"}
-                    color="brand.primary"
-                    py={4}
-                    px={3}
+                    fontWeight="bold"
+                    color={COLORS.brand.primary}
+                    py={SPACING.table.header.paddingY}
+                    px={SPACING.table.header.paddingX}
                     verticalAlign="middle"
                   >
                     Company
                   </Table.ColumnHeader>
                   <Table.ColumnHeader
-                    fontWeight={"bold"}
-                    color="brand.primary"
-                    py={4}
-                    px={3}
+                    fontWeight="bold"
+                    color={COLORS.brand.primary}
+                    py={SPACING.table.header.paddingY}
+                    px={SPACING.table.header.paddingX}
                     verticalAlign="middle"
                   >
                     Title
                   </Table.ColumnHeader>
                   <Table.ColumnHeader
-                    fontWeight={"bold"}
-                    color="brand.primary"
-                    py={4}
-                    px={3}
+                    fontWeight="bold"
+                    color={COLORS.brand.primary}
+                    py={SPACING.table.header.paddingY}
+                    px={SPACING.table.header.paddingX}
                     verticalAlign="middle"
                   >
                     Mockup
                   </Table.ColumnHeader>
                   <Table.ColumnHeader
-                    fontWeight={"bold"}
-                    color="brand.primary"
-                    py={4}
-                    px={3}
+                    fontWeight="bold"
+                    color={COLORS.brand.primary}
+                    py={SPACING.table.header.paddingY}
+                    px={SPACING.table.header.paddingX}
                     verticalAlign="middle"
                   >
                     Role
                   </Table.ColumnHeader>
                   <Table.ColumnHeader
-                    fontWeight={"bold"}
-                    color="brand.primary"
-                    py={4}
-                    px={3}
+                    fontWeight="bold"
+                    color={COLORS.brand.primary}
+                    py={SPACING.table.header.paddingY}
+                    px={SPACING.table.header.paddingX}
                     verticalAlign="middle"
                   >
                     Actions
@@ -297,73 +280,73 @@ export default function ProjectManagement() {
                 {projects.map((project) => (
                   <Table.Row
                     key={project.id}
-                    _hover={{ bg: "brand.divider", cursor: "pointer" }}
-                    style={{ transition: "background 0.2s" }}
+                    _hover={{ bg: COLORS.ui.tableRowHoverBg, cursor: "pointer" }}
+                    style={{ transition: ANIMATIONS.transitions.background }}
                     onClick={() => handleEdit(project)}
                   >
-                    <Table.Cell py={4} px={3} verticalAlign="middle">
+                    <Table.Cell py={SPACING.table.cell.paddingY} px={SPACING.table.cell.paddingX} verticalAlign="middle">
                       {project.company_logo_url ? (
                         <Image
                           src={project.company_logo_url}
                           alt={`${project.company_name} logo`}
-                          boxSize="40px"
+                          boxSize={SIZES.component.avatar.md}
                           objectFit="contain"
-                          borderRadius="md"
-                          border="1px solid"
-                          borderColor="gray.200"
+                          borderRadius={BORDERS.radius.md}
+                          border={BORDERS.widths.thin}
+                          borderColor={COLORS.ui.placeholderBorder}
                         />
                       ) : (
                         <Box
-                          boxSize="40px"
-                          bg="gray.100"
-                          borderRadius="md"
+                          boxSize={SIZES.component.avatar.md}
+                          bg={COLORS.ui.placeholderBg}
+                          borderRadius={BORDERS.radius.md}
                           display="flex"
                           alignItems="center"
                           justifyContent="center"
                         >
-                          <Text fontSize="xs" color="gray.500">
+                          <Text variant="caption" color={COLORS.ui.placeholderText}>
                             No Logo
                           </Text>
                         </Box>
                       )}
                     </Table.Cell>
-                    <Table.Cell py={4} px={3} verticalAlign="middle">
+                    <Table.Cell py={SPACING.table.cell.paddingY} px={SPACING.table.cell.paddingX} verticalAlign="middle">
                       {project.company_name}
                     </Table.Cell>
-                    <Table.Cell py={4} px={3} verticalAlign="middle">
+                    <Table.Cell py={SPACING.table.cell.paddingY} px={SPACING.table.cell.paddingX} verticalAlign="middle">
                       {project.title}
                     </Table.Cell>
-                    <Table.Cell py={4} px={3} verticalAlign="middle">
+                    <Table.Cell py={SPACING.table.cell.paddingY} px={SPACING.table.cell.paddingX} verticalAlign="middle">
                       {project.mockup_url ? (
                         <Image
                           src={project.mockup_url}
                           alt={`${project.title} mockup`}
-                          boxSize="60px"
+                          boxSize={SIZES.component.avatar.lg}
                           objectFit="cover"
-                          borderRadius="md"
-                          border="1px solid"
-                          borderColor="gray.200"
+                          borderRadius={BORDERS.radius.md}
+                          border={BORDERS.widths.thin}
+                          borderColor={COLORS.ui.placeholderBorder}
                         />
                       ) : (
                         <Box
-                          boxSize="60px"
-                          bg="gray.100"
-                          borderRadius="md"
+                          boxSize={SIZES.component.avatar.lg}
+                          bg={COLORS.ui.placeholderBg}
+                          borderRadius={BORDERS.radius.md}
                           display="flex"
                           alignItems="center"
                           justifyContent="center"
                         >
-                          <Text fontSize="xs" color="gray.500">
+                          <Text variant="caption" color={COLORS.ui.placeholderText}>
                             No Image
                           </Text>
                         </Box>
                       )}
                     </Table.Cell>
-                    <Table.Cell py={4} px={3} verticalAlign="middle">
+                    <Table.Cell py={SPACING.table.cell.paddingY} px={SPACING.table.cell.paddingX} verticalAlign="middle">
                       {project.role}
                     </Table.Cell>
-                    <Table.Cell py={4} px={3} verticalAlign="middle">
-                      <HStack gap={2}>
+                    <Table.Cell py={SPACING.table.cell.paddingY} px={SPACING.table.cell.paddingX} verticalAlign="middle">
+                      <HStack gap={SPACING.component.gap.xs}>
                         <IconButton
                           aria-label="Edit project"
                           size="sm"
@@ -394,17 +377,18 @@ export default function ProjectManagement() {
           open={isOpen}
           onOpenChange={(e) => setIsOpen(e.open)}
           size="xl"
+
         >
-          <DialogContent maxW="4xl">
+          <DialogContent maxW="4xl" py={SPACING.component.padding.card.y} px={SPACING.component.padding.card.x}>
             <DialogHeader>
               <DialogTitle>
                 {isEditing ? "Edit Project" : "Add New Project"}
               </DialogTitle>
               <DialogCloseTrigger onClick={handleModalClose} />
             </DialogHeader>
-            <DialogBody pb={6}>
-              <VStack gap={4} align="stretch">
-                <HStack gap={4} align="start">
+            <DialogBody pb={SPACING.component.gap.lg}>
+              <VStack gap={SPACING.form.fieldGap} align="stretch">
+                <HStack gap={SPACING.form.fieldGap} align="start">
                   <Field.Root flex="1">
                     <Field.Label>Company Name</Field.Label>
                     <Input
@@ -432,7 +416,7 @@ export default function ProjectManagement() {
                   </Field.Root>
                 </HStack>
 
-                <HStack gap={4}>
+                <HStack gap={SPACING.form.fieldGap}>
                   <Field.Root>
                     <Field.Label>Title</Field.Label>
                     <Input
@@ -515,11 +499,11 @@ export default function ProjectManagement() {
                   />
                 </Field.Root>
 
-                <HStack gap={3} justify="flex-end" pt={4}>
-                  <Button variant="outline" onClick={handleModalClose}>
+                <HStack gap={SPACING.form.footerGap} justify="flex-end" pt={SPACING.form.footerPaddingTop}>
+                  <Button variant="secondary" onClick={handleModalClose}>
                     Cancel
                   </Button>
-                  <Button onClick={handleSave}>
+                  <Button variant="primary" onClick={handleSave}>
                     {isEditing ? "Update" : "Create"} Project
                   </Button>
                 </HStack>
@@ -527,7 +511,6 @@ export default function ProjectManagement() {
             </DialogBody>
           </DialogContent>
         </DialogRoot>
-      </Box>
-    </Box>
+    </AdminPageTemplate>
   );
 }

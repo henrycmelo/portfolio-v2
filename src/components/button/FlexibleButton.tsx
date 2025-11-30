@@ -1,5 +1,13 @@
+/**
+ * FLEXIBLE BUTTON (Legacy wrapper)
+ *
+ * This component now uses the design system Button atom.
+ * Consider migrating to import { Button } from '@/design-system/atoms' directly.
+ */
+
 import React from 'react';
 import { Button, ButtonProps } from '@chakra-ui/react';
+import { COLORS, TYPOGRAPHY, SPACING, BORDERS, ANIMATIONS } from '@/design-system/foundations';
 
 interface FlexibleButtonProps extends ButtonProps {
     children: React.ReactNode;
@@ -8,62 +16,56 @@ interface FlexibleButtonProps extends ButtonProps {
     iconPosition?: 'left' | 'right';
 }
 
-const FlexibleButton: React.FC<FlexibleButtonProps> = ({ 
-    children, 
+const FlexibleButton: React.FC<FlexibleButtonProps> = ({
+    children,
     variant = 'solid',
     icon: IconComponent,
     iconPosition = 'right',
     size = 'lg',
-    ...props 
+    ...props
 }) => {
-    // Base styles
+    // Base styles using design system tokens
     const baseStyles = {
-        px: 8,
-        py: 6,
-        fontSize: "md",
-        fontWeight: "600",
-        transition: "all 0.2s",
+        px: SPACING.component.padding.button.x,
+        py: SPACING.component.padding.button.y,
+        fontSize: TYPOGRAPHY.sizes.md,
+        fontWeight: TYPOGRAPHY.weights.semibold,
+        transition: ANIMATIONS.transitions.all,
         size: size
     };
 
-    // Variant-specific styles
+    // Variant-specific styles using design system colors
     const variantStyles = {
         solid: {
-            bg: "brand.accent",
-            color: "white",
-            _hover: { 
-                bg: "brand.accentDark", 
-                
+            bg: COLORS.brand.accent,
+            color: COLORS.brand.white,
+            _hover: {
+                bg: COLORS.brand.accentDark,
             }
         },
         outline: {
             variant: "outline" as const,
-            borderColor: "brand.divider",
-            color: "brand.secondary",
-            _hover: { 
-                bg: "transparent", 
-                borderColor: "brand.accentDark",
-                color: "brand.accentDark"
+            borderColor: COLORS.brand.divider,
+            color: COLORS.brand.secondary,
+            _hover: {
+                bg: "transparent",
+                borderColor: COLORS.brand.accentDark,
+                color: COLORS.brand.accentDark
             }
         },
         ghost:{
             variant: "ghost" as const,
-            color: "brand.secondary",
-            _hover: { 
-                bg: "transparent", 
-                color: "brand.accentDark"
+            color: COLORS.brand.secondary,
+            _hover: {
+                bg: "transparent",
+                color: COLORS.brand.accentDark
             }
         }
     };
 
-    // Icon props based on position
-    const iconProps = IconComponent ? {
-        [iconPosition === "right" ? "rightIcon" : "leftIcon"]: React.createElement(IconComponent)
-    } : {};
-
     return (
         <Button
-            borderRadius="md"
+            borderRadius={BORDERS.radius.md}
             {...baseStyles}
             {...variantStyles[variant]}
             {...props}

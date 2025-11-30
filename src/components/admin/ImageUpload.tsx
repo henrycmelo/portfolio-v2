@@ -4,14 +4,14 @@ import { useState } from 'react';
 import {
   Box,
   Button,
-  Input,
   VStack,
   HStack,
   Image,
-  Text,
   Progress,
   IconButton,
 } from '@chakra-ui/react';
+import { Input, Text } from '@/design-system/atoms';
+import { COLORS, SPACING, TYPOGRAPHY, BORDERS } from '@/design-system/foundations';
 import { IoCloudUpload, IoImage, IoTrash, IoRefresh } from 'react-icons/io5';
 import { supabase } from '@/lib/supabase';
 import { toaster } from '@/components/ui/toaster';
@@ -161,11 +161,11 @@ export default function ImageUpload({
   };
 
   return (
-    <VStack gap={4} align="stretch">
+    <VStack gap={SPACING.component.gap.md} align="stretch">
       {currentImageUrl && (
         <Box>
-          <HStack justify="space-between" align="center" mb={2}>
-            <Text fontSize="sm" color="gray.600">
+          <HStack justify="space-between" align="center" mb={SPACING.scale.xs}>
+            <Text fontSize={TYPOGRAPHY.sizes.sm} color={COLORS.gray[600]}>
               Current Image:
             </Text>
             <HStack gap={1}>
@@ -187,9 +187,9 @@ export default function ImageUpload({
             maxH="200px"
             maxW="300px"
             objectFit="contain"
-            border="1px solid"
-            borderColor="gray.200"
-            borderRadius="md"
+            border={BORDERS.widths.thin}
+            borderColor={COLORS.ui.placeholderBorder}
+            borderRadius={BORDERS.radius.md}
           />
         </Box>
       )}
@@ -224,14 +224,14 @@ export default function ImageUpload({
       {(uploading || deleting) && (
         <Box>
           {uploading && <Progress value={uploadProgress} size="sm" />}
-          <Text fontSize="xs" color="gray.600" mt={1}>
+          <Text fontSize={TYPOGRAPHY.sizes.xs} color={COLORS.gray[600]} mt={1}>
             {uploading && `Uploading... ${uploadProgress}%`}
             {deleting && 'Deleting image...'}
           </Text>
         </Box>
       )}
 
-      <Text fontSize="xs" color="gray.500">
+      <Text fontSize={TYPOGRAPHY.sizes.xs} color={COLORS.gray[500]}>
         Supported formats: JPG, PNG, WebP. Max size: 5MB
       </Text>
     </VStack>

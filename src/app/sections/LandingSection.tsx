@@ -1,4 +1,6 @@
-import { Box, Text, HStack, VStack} from "@chakra-ui/react";
+import { Box, HStack, VStack } from "@chakra-ui/react";
+import { Text } from "@/design-system/atoms";
+import { COLORS, SPACING, BORDERS, SHADOWS, TYPOGRAPHY, SIZES } from "@/design-system/foundations";
 import {
   IoArrowForward,
   IoChatbubble,
@@ -8,52 +10,67 @@ import FlexibleButton from "@/components/button/FlexibleButton";
 export default function LandingSection() {
   return (
     <Box
-      maxW="5xl"
+      maxW={SIZES.container['5xl']}
       w="full"
-      bg="brand.white"
-      borderRadius="md"
-      boxShadow="0 25px 50px -12px rgba(0, 0, 0, 0.15)"
+      bg={COLORS.ui.containerBg}
+      borderRadius={BORDERS.radius.md}
+      boxShadow={SHADOWS.box.container}
       overflow="hidden"
-      border="1px solid"
-      borderColor="brand.divider"
+      border={BORDERS.widths.thin}
+      borderColor={COLORS.ui.containerBorder}
       mx="auto"
     >
       {/* Content Area */}
-      <Box p={{ base: 8, md: 12, lg: 16 }}>
-        <VStack gap={6} align="flex-start">
+      <Box p={{
+        base: SPACING.container.padding.base,
+        md: SPACING.container.padding.md,
+        lg: SPACING.container.padding.lg
+      }}>
+        <VStack gap={SPACING.component.gap.lg} align="flex-start">
           {/* Greeting */}
           <Text
-            fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
-            color="brand.secondary"
-            fontWeight="400"
+            fontSize={{
+              base: TYPOGRAPHY.sizes['2xl'],
+              md: TYPOGRAPHY.sizes['3xl'],
+              lg: TYPOGRAPHY.sizes['4xl']
+            }}
+            color={COLORS.brand.secondary}
+            fontWeight={TYPOGRAPHY.weights.normal}
           >
             Hi, I'm Henry 👋
           </Text>
 
           {/* Main Headline */}
           <Text
-            fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
-            fontWeight="700"
-            lineHeight="1.2"
-            color="brand.primary"
+            fontSize={{
+              base: '4xl',
+              md: '5xl',
+              lg: '6xl'
+            }}
+            fontWeight={TYPOGRAPHY.weights.bold}
+            lineHeight={TYPOGRAPHY.lineHeights.tight}
+            color={COLORS.brand.primary}
           >
-            <Text as="span" color="brand.accent">
+            <span style={{ color: COLORS.brand.accent }}>
               Designing Digital Solutions
-            </Text>{" "}
+            </span>{" "}
             for Healthcare, Fintech & Social Impact
           </Text>
 
           {/* Description */}
           <Text
-            fontSize={{ base: "lg", md: "xl" }}
-            color="brand.textMuted"
-            lineHeight="1.6"
+            fontSize={{
+              base: TYPOGRAPHY.sizes.lg,
+              md: TYPOGRAPHY.sizes.xl
+            }}
+            color={COLORS.brand.textMuted}
+            lineHeight={TYPOGRAPHY.lineHeights.relaxed}
             maxW="2xl"
           >
             I help organizations deliver better patient outcomes, streamline
             financial workflows, and create accessible digital experiences.
           </Text>
-          <HStack>
+          <HStack gap={SPACING.component.gap.md}>
             <FlexibleButton variant="solid" icon={IoArrowForward}>
               See my work
             </FlexibleButton>
@@ -61,10 +78,7 @@ export default function LandingSection() {
               Let's talk
             </FlexibleButton>
           </HStack>
-          <Text fontSize="sm" color="#6c757d" fontStyle="italic" pt={2}>
-            I enjoy prototyping and built this portfolio myself w/ React,
-            Next.js & Chakra UI.
-          </Text>
+          
         </VStack>
       </Box>
     </Box>

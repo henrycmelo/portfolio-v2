@@ -1,11 +1,12 @@
 import {
   Box,
-  Text,
   HStack,
   VStack,
   Image,
   Grid,
 } from "@chakra-ui/react";
+import { Text } from "@/design-system/atoms";
+import { COLORS, SPACING, BORDERS, SHADOWS, TYPOGRAPHY, SIZES } from "@/design-system/foundations";
 
 interface ProjectShowcaseProps {
   company_name: string;
@@ -32,38 +33,42 @@ export default function ProjectShowcaseCard({
 }: ProjectShowcaseProps) {
   return (
     <Box
-      maxW="5xl"
+      maxW={SIZES.container['5xl']}
       w="full"
-      bg="brand.white"
-      borderRadius="md"
-      boxShadow="0 25px 50px -12px rgba(0, 0, 0, 0.15)"
+      bg={COLORS.ui.containerBg}
+      borderRadius={BORDERS.radius.md}
+      boxShadow={SHADOWS.box.container}
       overflow="hidden"
       border="1px solid"
-      borderColor="brand.divider"
+      borderColor={COLORS.ui.containerBorder}
       mx="auto"
-      p={{ base: 8, md: 12, lg: 16 }}
+      p={{
+        base: SPACING.container.padding.base,
+        md: SPACING.container.padding.md,
+        lg: SPACING.container.padding.lg
+      }}
     >
       {/* Header */}
 
       <Image src={company_logo_url} alt={`${company_name} logo`} />
 
       {/* Title */}
-      <VStack align="flex-start" gap={6} mb={12}>
+      <VStack align="flex-start" gap={SPACING.component.gap.lg} mb={12}>
         <Text
-          fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
-          fontWeight="700"
-          lineHeight="1.1"
-          color="brand.primary"
+          fontSize={{ base: TYPOGRAPHY.sizes['3xl'], md: TYPOGRAPHY.sizes['4xl'], lg: '5xl' }}
+          fontWeight={TYPOGRAPHY.weights.bold}
+          lineHeight={TYPOGRAPHY.lineHeights.tight}
+          color={COLORS.brand.primary}
         >
           {title}
           <br />
-          <Text as="span" color="brand.accent">
+          <Text as="span" color={COLORS.brand.accent}>
             {highlight}
           </Text>
         </Text>
       </VStack>
 
-      <HStack gap={6} justify="center" flexWrap="wrap">
+      <HStack gap={SPACING.component.gap.lg} justify="center" flexWrap="wrap">
         {/* Mockup Image */}
         <Box mb={12} textAlign="center">
           <Image
@@ -71,8 +76,8 @@ export default function ProjectShowcaseCard({
             alt={`${company_name} mockup`}
             maxW="full"
             h="auto"
-            borderRadius="lg"
-            boxShadow="0 20px 25px -5px rgba(0, 0, 0, 0.1)"
+            borderRadius={BORDERS.radius.lg}
+            boxShadow={SHADOWS.box.xl}
           />
         </Box>
 
@@ -82,41 +87,73 @@ export default function ProjectShowcaseCard({
             md: "repeat(2, 1fr)",
             lg: "repeat(4, 1fr)",
           }}
-          gap={8}
+          gap={SPACING.scale.xl}
           mt={12}
         >
-          <VStack align="flex-start" gap={3}>
-            <Text fontSize="lg" fontWeight="700" color="brand.accent">
+          <VStack align="flex-start" gap={SPACING.scale.sm}>
+            <Text
+              fontSize={TYPOGRAPHY.sizes.lg}
+              fontWeight={TYPOGRAPHY.weights.bold}
+              color={COLORS.brand.accent}
+            >
               Problem
             </Text>
-            <Text fontSize="md" color="brand.textMuted" lineHeight="1.6">
+            <Text
+              fontSize={TYPOGRAPHY.sizes.md}
+              color={COLORS.brand.textMuted}
+              lineHeight={TYPOGRAPHY.lineHeights.relaxed}
+            >
               {problem}
             </Text>
           </VStack>
 
-          <VStack align="flex-start" gap={3}>
-            <Text fontSize="lg" fontWeight="700" color="brand.accent">
+          <VStack align="flex-start" gap={SPACING.scale.sm}>
+            <Text
+              fontSize={TYPOGRAPHY.sizes.lg}
+              fontWeight={TYPOGRAPHY.weights.bold}
+              color={COLORS.brand.accent}
+            >
               Solution
             </Text>
-            <Text fontSize="md" color="brand.textMuted" lineHeight="1.6">
+            <Text
+              fontSize={TYPOGRAPHY.sizes.md}
+              color={COLORS.brand.textMuted}
+              lineHeight={TYPOGRAPHY.lineHeights.relaxed}
+            >
               {solution}
             </Text>
           </VStack>
 
-          <VStack align="flex-start" gap={3}>
-            <Text fontSize="lg" fontWeight="700" color="brand.accent">
+          <VStack align="flex-start" gap={SPACING.scale.sm}>
+            <Text
+              fontSize={TYPOGRAPHY.sizes.lg}
+              fontWeight={TYPOGRAPHY.weights.bold}
+              color={COLORS.brand.accent}
+            >
               Benefit
             </Text>
-            <Text fontSize="md" color="brand.textMuted" lineHeight="1.6">
+            <Text
+              fontSize={TYPOGRAPHY.sizes.md}
+              color={COLORS.brand.textMuted}
+              lineHeight={TYPOGRAPHY.lineHeights.relaxed}
+            >
               {benefit}
             </Text>
           </VStack>
 
-          <VStack align="flex-start" gap={3}>
-            <Text fontSize="lg" fontWeight="700" color="brand.accent">
+          <VStack align="flex-start" gap={SPACING.scale.sm}>
+            <Text
+              fontSize={TYPOGRAPHY.sizes.lg}
+              fontWeight={TYPOGRAPHY.weights.bold}
+              color={COLORS.brand.accent}
+            >
               Role
             </Text>
-            <Text fontSize="md" color="brand.textMuted" lineHeight="1.6">
+            <Text
+              fontSize={TYPOGRAPHY.sizes.md}
+              color={COLORS.brand.textMuted}
+              lineHeight={TYPOGRAPHY.lineHeights.relaxed}
+            >
               {role}
             </Text>
           </VStack>

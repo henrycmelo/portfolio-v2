@@ -1,21 +1,35 @@
-// components/common/SectionWrapper.tsx
+/**
+ * SECTION WRAPPER
+ *
+ * Wrapper component for page sections with consistent spacing.
+ * Uses design system foundation tokens for responsive padding.
+ */
+
 import { Box } from "@chakra-ui/react";
-export default function SectionWrapper({ 
-  id, 
-  children, 
+import { SPACING } from "@/design-system/foundations";
+
+export default function SectionWrapper({
+  id,
+  children,
   minHeight = 'auto'
-}: { 
+}: {
   id: string
   children: React.ReactNode
-  minHeight?: string 
+  minHeight?: string
 }) {
   return (
-    <Box 
+    <Box
       id={id}
       minH={minHeight}
-      px={{ base: 6, md: 12, lg: 16 }}
-      py={{ base: 8, md: 12 }}
-      border={"1px solid red"}
+      px={{
+        base: SPACING.container.padding.base - 2,
+        md: SPACING.container.padding.md,
+        lg: SPACING.container.padding.lg
+      }}
+      py={{
+        base: SPACING.container.padding.base,
+        md: SPACING.container.padding.md
+      }}
     >
       {children}
     </Box>
