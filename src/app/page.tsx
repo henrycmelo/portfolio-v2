@@ -10,6 +10,7 @@ import Projects from "./sections/Projects";
 import SwiperComponent from "./sections/SwiperComponent";
 import CareerTimeline from "./sections/CareerTimeline";
 import AboutMeSection from "./sections/AboutMeSection";
+import ContactSection from "./sections/ContactSection";
 
 
 export default function Home() {
@@ -50,12 +51,12 @@ export default function Home() {
         <AboutMeSection />
        
       </SectionWrapper>
-      <SectionWrapper id="projects">
+      <SectionWrapper id="contact">
         <Text fontSize="5xl" fontWeight="bold" mb={4} color={
           'brand.primary'}>
           Contact Me
         </Text>
-       
+        <ContactSection />
       </SectionWrapper>
     </Box>
   );

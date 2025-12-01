@@ -1,5 +1,7 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
+import { render } from '@react-email/components';
+import * as React from 'react';
 import ContactNotificationEmail from '@/emails/ContactNotificationEmail';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -16,12 +18,17 @@ export async function POST(request: Request) {
       );
     }
 
+    // Render the email template
+    const emailHtml = await render(
+      React.createElement(ContactNotificationEmail, { name, email, message })
+    );
+
     // Send email notification
     const { data, error } = await resend.emails.send({
-      from: process.env.EMAIL_FROM || 'Portfolio <noreply@henrycastillomelo.com>',
+      from: process.env.EMAIL_FROM || 'Portfolio <noreply@henrycmelo.com>',
       to: process.env.EMAIL_TO || 'your@email.com',
       subject: `New Contact Form Message from ${name}`,
-      react: ContactNotificationEmail({ name, email, message }),
+      html: emailHtml,
       // Also send plain text version as fallback
       text: `
 New Contact Form Submission

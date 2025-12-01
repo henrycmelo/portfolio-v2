@@ -15,7 +15,7 @@
 import { useState, useEffect } from 'react';
 
 //Chakra UI
-import { Box, VStack, HStack, Table, IconButton, Alert, Spinner, Badge } from '@chakra-ui/react';
+import { Box, VStack, HStack, Table, IconButton, Alert, Spinner } from '@chakra-ui/react';
 import { IoTrash, IoMail, IoMailOpen, IoArchive, IoChevronDown, IoChevronUp } from 'react-icons/io5';
 
 //API & Data Types
@@ -27,12 +27,13 @@ import { Toaster, toaster } from '../ui/toaster';
 //design system -Atoms
 import {Button} from '@/design-system/atoms/Button';
 import {Text} from '@/design-system/atoms/Text';
+import {Badge} from '@/design-system/atoms/Badge';
 
 import { PageHeader } from '@/design-system/organisms/PageHeader';
 import { AdminPageTemplate } from '@/design-system/templates/AdminPageTemplate';
 
 //Design System -Foundations (Design Tokens)
-import {COLORS, SPACING, BORDERS, ANIMATIONS, SIZES } from "@/design-system/foundations"
+import {COLORS, SPACING, BORDERS, ANIMATIONS, SIZES, TYPOGRAPHY } from "@/design-system/foundations"
 
 // ============================================================================
 // COMPONENT
@@ -139,14 +140,14 @@ export default function ContactMessagesManagement() {
 
   const getStatusBadge = (status: ContactMessage['status']) => {
     const statusConfig = {
-      unread: { color: 'blue', label: 'Unread' },
-      read: { color: 'green', label: 'Read' },
-      archived: { color: 'gray', label: 'Archived' },
+      unread: { variant: 'primary' as const, label: 'Unread' },
+      read: { variant: 'success' as const, label: 'Read' },
+      archived: { variant: 'neutral' as const, label: 'Archived' },
     };
 
     const config = statusConfig[status];
     return (
-      <Badge colorPalette={config.color} variant="solid">
+      <Badge variant={config.variant}>
         {config.label}
       </Badge>
     );
@@ -161,6 +162,7 @@ export default function ContactMessagesManagement() {
       year: 'numeric',
       hour: 'numeric',
       minute: '2-digit',
+      timeZone: 'UTC',
     }).format(date);
   };
 
@@ -296,7 +298,9 @@ export default function ContactMessagesManagement() {
 
                     {/* Date */}
                     <Table.Cell py={SPACING.table.cell.paddingY} px={SPACING.table.cell.paddingX}>
-                      <Text variant="caption">{formatDate(message.created_at)}</Text>
+                      <Text variant="caption" suppressHydrationWarning>
+                        {formatDate(message.created_at)}
+                      </Text>
                     </Table.Cell>
 
                     {/* Actions */}

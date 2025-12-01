@@ -20,6 +20,7 @@ import CareerTimelineManagement from "@/components/admin/CareerTimelineManagemen
 import LandingPageManagement from "@/components/admin/LandingPageManagement";
 import SidebarManagement from "@/components/admin/SidebarManagement";
 import AboutMeManagement from "@/components/admin/AboutMeManagement";
+import ContactMessagesManagement from "@/components/admin/ContactMessagesManagement";
 
 export default function AdminPage() {
   const [email, setEmail] = useState("");
@@ -151,6 +152,9 @@ export default function AdminPage() {
     </SectionWrapper>
     <SectionWrapper id="admin-career" >
       <CareerTimelineManagement/>
+    </SectionWrapper>
+    <SectionWrapper id="admin-contact-messages" >
+      <ContactMessagesManagement/>
     </SectionWrapper>
     </>
 

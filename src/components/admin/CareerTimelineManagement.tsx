@@ -50,6 +50,7 @@ import { toaster } from "@/components/ui/toaster";
 import { Button } from "@/design-system/atoms/Button";
 import { Text } from "@/design-system/atoms/Text";
 import { Input } from "@/design-system/atoms/Input";
+import { Badge } from "@/design-system/atoms/Badge";
 
 // Design System - Organisms & Templates
 import { PageHeader } from "@/design-system/organisms/PageHeader";
@@ -493,17 +494,9 @@ export default function CareerTimelineManagement() {
 
                     {/* Type Cell */}
                     <Table.Cell py={SPACING.table.cell.paddingY} px={SPACING.table.cell.paddingX} verticalAlign="middle">
-                      <Box
-                        as="span"
-                        px={2}
-                        py={1}
-                        borderRadius={BORDERS.radius.sm}
-                        bg={entry.entry_type === "work" ? "blue.100" : "green.100"}
-                        color={entry.entry_type === "work" ? "blue.800" : "green.800"}
-                        fontSize="sm"
-                      >
+                      <Badge variant={entry.entry_type === "work" ? "primary" : "success"}>
                         {entry.entry_type}
-                      </Box>
+                      </Badge>
                     </Table.Cell>
 
                     {/* Actions Cell - Edit/Delete Buttons */}

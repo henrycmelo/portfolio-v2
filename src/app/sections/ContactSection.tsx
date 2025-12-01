@@ -1,13 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { Box, VStack, HStack } from '@chakra-ui/react';
-import { Field } from '@chakra-ui/react';
+import { Box, VStack } from '@chakra-ui/react';
 import { Text, Input, Textarea, Button } from '@/design-system/atoms';
 import { COLORS, SPACING, BORDERS, SHADOWS, TYPOGRAPHY, SIZES } from '@/design-system/foundations';
 import { contactAPI } from '@/api/contactAPI';
 import { toaster } from '@/components/ui/toaster';
-import { IoSend, IoPerson, IoMail, IoChatbubble } from 'react-icons/io5';
+import { IoSend } from 'react-icons/io5';
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -94,7 +93,7 @@ export default function ContactSection() {
 
   return (
     <Box
-      maxW={SIZES.container['3xl']}
+      maxW={SIZES.container['5xl']}
       w="full"
       bg={COLORS.ui.containerBg}
       borderRadius={BORDERS.radius.md}
@@ -111,29 +110,31 @@ export default function ContactSection() {
         lg: SPACING.container.padding.lg
       }}>
         {/* Section Title */}
-        <VStack align="flex-start" gap={SPACING.scale.md} mb={SPACING.scale['2xl']}>
-          <Text
-            fontSize={{
-              base: TYPOGRAPHY.sizes['3xl'],
-              md: TYPOGRAPHY.sizes['4xl'],
-              lg: TYPOGRAPHY.sizes['5xl']
-            }}
-            fontWeight={TYPOGRAPHY.weights.bold}
-            color={COLORS.brand.primary}
-          >
-            Get In Touch
-          </Text>
-          <Text
-            fontSize={{
-              base: TYPOGRAPHY.sizes.md,
-              md: TYPOGRAPHY.sizes.lg
-            }}
-            color={COLORS.brand.textMuted}
-            lineHeight={TYPOGRAPHY.lineHeights.relaxed}
-          >
-            Have a project in mind or just want to chat? Feel free to reach out!
-          </Text>
-        </VStack>
+        <Text
+          fontSize={{
+            base: TYPOGRAPHY.sizes['2xl'],
+            md: TYPOGRAPHY.sizes['3xl'],
+            lg: TYPOGRAPHY.sizes['4xl']
+          }}
+          fontWeight={TYPOGRAPHY.weights.bold}
+          color={COLORS.brand.primary}
+          mb={SPACING.scale.xl}
+        >
+          Get In Touch
+        </Text>
+
+        {/* Description */}
+        <Text
+          fontSize={{
+            base: TYPOGRAPHY.sizes.md,
+            md: TYPOGRAPHY.sizes.lg
+          }}
+          color={COLORS.brand.textMuted}
+          lineHeight={TYPOGRAPHY.lineHeights.relaxed}
+          mb={SPACING.scale['2xl']}
+        >
+          Have a project in mind or just want to chat? Feel free to reach out!
+        </Text>
 
         {/* Contact Form */}
         <Box
@@ -141,15 +142,17 @@ export default function ContactSection() {
           onSubmit={handleSubmit}
           maxW={SIZES.container.lg}
         >
-          <VStack gap={SPACING.form.fieldGap} align="stretch">
+          <VStack gap={SPACING.scale.lg} align="stretch">
             {/* Name Field */}
-            <Field.Root>
-              <Field.Label>
-                <HStack gap={SPACING.scale.xs}>
-                  <IoPerson />
-                  <Text>Name</Text>
-                </HStack>
-              </Field.Label>
+            <Box>
+              <Text
+                fontSize={TYPOGRAPHY.sizes.sm}
+                fontWeight={TYPOGRAPHY.weights.medium}
+                color={COLORS.brand.text}
+                mb={SPACING.scale.xs}
+              >
+                Name
+              </Text>
               <Input
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
@@ -157,16 +160,18 @@ export default function ContactSection() {
                 required
                 disabled={isSubmitting}
               />
-            </Field.Root>
+            </Box>
 
             {/* Email Field */}
-            <Field.Root>
-              <Field.Label>
-                <HStack gap={SPACING.scale.xs}>
-                  <IoMail />
-                  <Text>Email</Text>
-                </HStack>
-              </Field.Label>
+            <Box>
+              <Text
+                fontSize={TYPOGRAPHY.sizes.sm}
+                fontWeight={TYPOGRAPHY.weights.medium}
+                color={COLORS.brand.text}
+                mb={SPACING.scale.xs}
+              >
+                Email
+              </Text>
               <Input
                 type="email"
                 value={formData.email}
@@ -175,16 +180,18 @@ export default function ContactSection() {
                 required
                 disabled={isSubmitting}
               />
-            </Field.Root>
+            </Box>
 
             {/* Message Field */}
-            <Field.Root>
-              <Field.Label>
-                <HStack gap={SPACING.scale.xs}>
-                  <IoChatbubble />
-                  <Text>Message</Text>
-                </HStack>
-              </Field.Label>
+            <Box>
+              <Text
+                fontSize={TYPOGRAPHY.sizes.sm}
+                fontWeight={TYPOGRAPHY.weights.medium}
+                color={COLORS.brand.text}
+                mb={SPACING.scale.xs}
+              >
+                Message
+              </Text>
               <Textarea
                 value={formData.message}
                 onChange={(e) => handleInputChange('message', e.target.value)}
@@ -193,20 +200,21 @@ export default function ContactSection() {
                 required
                 disabled={isSubmitting}
               />
-            </Field.Root>
+            </Box>
 
             {/* Submit Button */}
-            <Box pt={SPACING.scale.md}>
+            <Box pt={SPACING.scale.md} w="full">
               <Button
                 type="submit"
-                variant="solid"
+                variant="primary"
+                size="lg"
                 disabled={isSubmitting}
-                w={{ base: 'full', sm: 'auto' }}
+                width="full"
               >
-                <HStack gap={SPACING.scale.xs}>
+                <Box display="flex" alignItems="center" gap={SPACING.scale.xs}>
                   <IoSend />
-                  <Text>{isSubmitting ? 'Sending...' : 'Send Message'}</Text>
-                </HStack>
+                  <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+                </Box>
               </Button>
             </Box>
           </VStack>
