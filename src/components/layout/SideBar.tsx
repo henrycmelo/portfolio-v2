@@ -12,17 +12,34 @@ import {
 } from "@chakra-ui/react";
 import { Text } from "@/design-system/atoms";
 import { COLORS, SPACING, TYPOGRAPHY, BORDERS } from "@/design-system/foundations";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tooltip } from "@/components/ui/tooltip";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { menuItems } from "@/data/navigation";
 import socialsData from "@/data/socials";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+import { sidebarAPI, SidebarData } from "@/api/sidebarAPI";
 
 export default function Sidebar() {
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [sidebarData, setSidebarData] = useState<SidebarData | null>(null);
+
+  useEffect(() => {
+    const fetchSidebarData = async () => {
+      try {
+        const data = await sidebarAPI.getSidebarData();
+        if (data && data.length > 0) {
+          setSidebarData(data[0]);
+        }
+      } catch (error) {
+        console.error('Error fetching sidebar data:', error);
+      }
+    };
+
+    fetchSidebarData();
+  }, []);
 
   const shouldShowSidebar = isCollapsed;
 
@@ -54,18 +71,22 @@ export default function Sidebar() {
         py={{ base: SPACING.component.gap.md, md: shouldShowSidebar? SPACING.component.gap.md : SPACING.component.gap.lg }}
         gap={SPACING.scale.sm}
       >
-        <Avatar.Root size="md">
-          <Avatar.Fallback name="Segun Adebayo" />
-          <Avatar.Image src="https://bit.ly/sage-adebayo" />
-        </Avatar.Root>
-        <Box display={{ base: "none", md: shouldShowSidebar ? "none" : "block" }}>
-          <Text color={COLORS.brand.primary} fontSize={TYPOGRAPHY.sizes.sm}>
-            Henry C. Melo
-          </Text>
-          <Text fontSize={TYPOGRAPHY.sizes.xs} color={COLORS.brand.textMuted}>
-            Product Designer | M.S HCI & UX
-          </Text>
-        </Box>
+        {sidebarData && (
+          <>
+            <Avatar.Root size="md">
+              <Avatar.Fallback name={sidebarData.name} />
+              <Avatar.Image src={sidebarData.avatar_url} />
+            </Avatar.Root>
+            <Box display={{ base: "none", md: shouldShowSidebar ? "none" : "block" }}>
+              <Text color={COLORS.brand.primary} fontSize={TYPOGRAPHY.sizes.sm}>
+                {sidebarData.name}
+              </Text>
+              <Text fontSize={TYPOGRAPHY.sizes.xs} color={COLORS.brand.textMuted}>
+                {sidebarData.subtitle}
+              </Text>
+            </Box>
+          </>
+        )}
       </Flex>
 
       {/* Menu Items */}

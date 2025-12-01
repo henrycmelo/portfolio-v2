@@ -17,6 +17,9 @@ import FlexibleButton from "@/components/button/FlexibleButton";
 import { useAuth } from "@/components/contexts/AuthContext";
 import SectionWrapper from "@/components/common/SectionWrapper";
 import CareerTimelineManagement from "@/components/admin/CareerTimelineManagement";
+import LandingPageManagement from "@/components/admin/LandingPageManagement";
+import SidebarManagement from "@/components/admin/SidebarManagement";
+import AboutMeManagement from "@/components/admin/AboutMeManagement";
 
 export default function AdminPage() {
   const [email, setEmail] = useState("");
@@ -134,10 +137,19 @@ export default function AdminPage() {
 
   return (
     <>
-    <SectionWrapper id="admin-dashboard" minHeight="100vh">
+    <SectionWrapper id="admin-sidebar" >
+      <SidebarManagement />
+    </SectionWrapper>
+    <SectionWrapper id="admin-landing-page" >
+      <LandingPageManagement />
+    </SectionWrapper>
+    <SectionWrapper id="admin-about-me" >
+      <AboutMeManagement />
+    </SectionWrapper>
+    <SectionWrapper id="admin-dashboard" >
       <ProjectManagement />
     </SectionWrapper>
-    <SectionWrapper id="admin-career" minHeight="100vh">
+    <SectionWrapper id="admin-career" >
       <CareerTimelineManagement/>
     </SectionWrapper>
     </>

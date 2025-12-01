@@ -285,6 +285,7 @@ export default function CareerTimelineManagement() {
       border={BORDERS.widths.thin}
       borderColor={COLORS.brand.accent}
       mb={SPACING.component.margin.elementBottom}
+      color={COLORS.brand.text}
     >
       <VStack gap={SPACING.form.fieldGap} align="stretch">
         {/* Role */}

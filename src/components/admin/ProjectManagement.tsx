@@ -385,6 +385,7 @@ export default function ProjectManagement() {
       border={BORDERS.widths.thin}
       borderColor={COLORS.brand.accent}
       mb={SPACING.component.margin.elementBottom}
+      color={COLORS.brand.text}
     >
       <VStack gap={SPACING.form.fieldGap} align="stretch">
         {/* Company Name */}

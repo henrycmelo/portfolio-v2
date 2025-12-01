@@ -5,18 +5,18 @@ import { supabase } from '@/lib/supabase';
  * Creates the folder if it doesn't exist (folders are created automatically in Supabase)
  *
  * @param file - The image file to upload
- * @param companyName - The company name (used for folder organization)
- * @param imageType - Type of image: 'logo' | 'mockup'
+ * @param folderName - The folder name (used for organization, e.g., company name, 'about-me', 'sidebar')
+ * @param imageType - Type of image: 'logo' | 'mockup' | 'image' | 'avatar'
  * @returns The public URL of the uploaded image
  */
 export async function uploadImageToSupabase(
   file: File,
-  companyName: string,
-  imageType: 'logo' | 'mockup'
+  folderName: string,
+  imageType: 'logo' | 'mockup' | 'image' | 'avatar'
 ): Promise<string> {
   try {
-    // Sanitize company name for use in file path
-    const sanitizedCompanyName = companyName
+    // Sanitize folder name for use in file path
+    const sanitizedFolderName = folderName
       .toLowerCase()
       .replace(/[^a-z0-9]/g, '-')
       .replace(/-+/g, '-')
@@ -26,10 +26,10 @@ export async function uploadImageToSupabase(
     const fileExt = file.name.split('.').pop();
     const timestamp = Date.now();
     const randomString = Math.random().toString(36).substring(2, 9);
-    const fileName = `${sanitizedCompanyName}_${imageType}_${timestamp}_${randomString}.${fileExt}`;
+    const fileName = `${sanitizedFolderName}_${imageType}_${timestamp}_${randomString}.${fileExt}`;
 
-    // Create file path with company folder
-    const filePath = `${sanitizedCompanyName}/${imageType}s/${fileName}`;
+    // Create file path with folder structure
+    const filePath = `${sanitizedFolderName}/${imageType}s/${fileName}`;
     
 
     // Try lowercase bucket name first (Supabase typically uses lowercase)

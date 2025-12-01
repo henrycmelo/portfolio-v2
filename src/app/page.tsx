@@ -9,6 +9,7 @@ import { Text } from "@chakra-ui/react";
 import Projects from "./sections/Projects";
 import SwiperComponent from "./sections/SwiperComponent";
 import CareerTimeline from "./sections/CareerTimeline";
+import AboutMeSection from "./sections/AboutMeSection";
 
 
 export default function Home() {
@@ -46,6 +47,7 @@ export default function Home() {
           'brand.primary'}>
           About Me
         </Text>
+        <AboutMeSection />
        
       </SectionWrapper>
       <SectionWrapper id="projects">

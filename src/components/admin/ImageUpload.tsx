@@ -3,7 +3,6 @@
 import { useState, useEffect, useId } from 'react';
 import {
   Box,
-  Button,
   VStack,
   HStack,
   Image,
@@ -121,16 +120,33 @@ export default function ImageUpload({
           display="none"
           id={inputId}
         />
-        <Button
+        <Box
           as="label"
           htmlFor={inputId}
           cursor="pointer"
           w="full"
-          variant="outline"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          gap={SPACING.scale.xs}
+          px={SPACING.scale.md}
+          py={SPACING.scale.sm}
+          bg={COLORS.brand.white}
+          color={COLORS.brand.secondary}
+          border={BORDERS.widths.thin}
+          borderColor={COLORS.ui.containerBorder}
+          borderRadius={BORDERS.radius.md}
+          fontSize={TYPOGRAPHY.sizes.sm}
+          fontWeight={TYPOGRAPHY.weights.medium}
+          transition="all 0.2s"
+          _hover={{
+            bg: COLORS.ui.tableRowHoverBg,
+            borderColor: COLORS.brand.accent,
+          }}
         >
           {previewUrl ? <IoRefresh /> : <IoCloudUpload />}
           {previewUrl ? 'Replace Image' : label}
-        </Button>
+        </Box>
       </Box>
 
       <Text fontSize={TYPOGRAPHY.sizes.xs} color={COLORS.gray[500]}>

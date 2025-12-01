@@ -1,3 +1,6 @@
+'use client';
+
+import { useState, useEffect } from "react";
 import { Box, HStack, VStack } from "@chakra-ui/react";
 import { Text } from "@/design-system/atoms";
 import { COLORS, SPACING, BORDERS, SHADOWS, TYPOGRAPHY, SIZES } from "@/design-system/foundations";
@@ -6,8 +9,34 @@ import {
   IoChatbubble,
 } from "react-icons/io5";
 import FlexibleButton from "@/components/button/FlexibleButton";
+import { landingAPI, LandingPageData } from "@/api/landingAPI";
 
 export default function LandingSection() {
+  const [landingData, setLandingData] = useState<LandingPageData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchLandingData = async () => {
+      try {
+        const data = await landingAPI.getLandingPageData();
+        if (data && data.length > 0) {
+          setLandingData(data[0]);
+        }
+      } catch (error) {
+        console.error('Error fetching landing page data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLandingData();
+  }, []);
+
+  // If no data is available, don't render anything
+  if (!landingData) {
+    return null;
+  }
+
   return (
     <Box
       maxW={SIZES.container['5xl']}
@@ -37,7 +66,7 @@ export default function LandingSection() {
             color={COLORS.brand.secondary}
             fontWeight={TYPOGRAPHY.weights.normal}
           >
-            Hi, I'm Henry 👋
+            {landingData.hero_subtitle}
           </Text>
 
           {/* Main Headline */}
@@ -51,10 +80,7 @@ export default function LandingSection() {
             lineHeight={TYPOGRAPHY.lineHeights.tight}
             color={COLORS.brand.primary}
           >
-            <span style={{ color: COLORS.brand.accent }}>
-              Designing Digital Solutions
-            </span>{" "}
-            for Healthcare, Fintech & Social Impact
+            {landingData.hero_title}
           </Text>
 
           {/* Description */}
@@ -67,18 +93,33 @@ export default function LandingSection() {
             lineHeight={TYPOGRAPHY.lineHeights.relaxed}
             maxW="2xl"
           >
-            I help organizations deliver better patient outcomes, streamline
-            financial workflows, and create accessible digital experiences.
+            {landingData.hero_paragraph}
           </Text>
-          <HStack gap={SPACING.component.gap.md}>
-            <FlexibleButton variant="solid" icon={IoArrowForward}>
-              See my work
-            </FlexibleButton>
-            <FlexibleButton variant="outline" icon={IoChatbubble}>
-              Let's talk
-            </FlexibleButton>
-          </HStack>
-          
+
+          {/* Action Buttons */}
+          <VStack gap={SPACING.scale.sm} align="flex-start" w="full">
+            <HStack gap={SPACING.component.gap.md}>
+              <FlexibleButton variant="solid" icon={IoArrowForward}>
+                See my work
+              </FlexibleButton>
+              <FlexibleButton variant="outline" icon={IoChatbubble}>
+                Let's talk
+              </FlexibleButton>
+            </HStack>
+
+            {/* Caption below buttons */}
+            {landingData.hero_caption && (
+              <Text
+                fontSize={TYPOGRAPHY.sizes.sm}
+                color={COLORS.brand.textMuted}
+                fontStyle="italic"
+                mt={SPACING.scale.xs}
+              >
+                {landingData.hero_caption}
+              </Text>
+            )}
+          </VStack>
+
         </VStack>
       </Box>
     </Box>
