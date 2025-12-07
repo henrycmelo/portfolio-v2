@@ -1,5 +1,5 @@
 'use client';
-import ProjectShowcaseCard from "@/components/common/ProjectShowcaseCard";
+import ProjectShowcaseCard from "@/design-system/organisms/ProjectCard";
 import {projectsAPI} from "@/api/projectsAPI"
 import { Box, Spinner, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";

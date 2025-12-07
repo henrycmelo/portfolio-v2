@@ -11,21 +11,30 @@ import {
   Field,
   Spinner,
 } from "@chakra-ui/react";
-import ProjectManagement from "@/components/admin/ProjectManagement";
+import {
+  ProjectManagement,
+  CareerTimelineManagement,
+  LandingPageManagement,
+  SidebarManagement,
+  AboutMeManagement,
+  ContactMessagesManagement
+} from "@/design-system/pages/admin";
 import { toaster } from "@/components/ui/toaster";
 import FlexibleButton from "@/components/button/FlexibleButton";
 import { useAuth } from "@/components/contexts/AuthContext";
-import SectionWrapper from "@/components/common/SectionWrapper";
-import CareerTimelineManagement from "@/components/admin/CareerTimelineManagement";
-import LandingPageManagement from "@/components/admin/LandingPageManagement";
-import SidebarManagement from "@/components/admin/SidebarManagement";
-import AboutMeManagement from "@/components/admin/AboutMeManagement";
-import ContactMessagesManagement from "@/components/admin/ContactMessagesManagement";
+import { SectionWrapper } from "@/design-system/molecules";
+import { AdminLayout } from "@/design-system/templates";
 
 export default function AdminPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [currentSection, setCurrentSection] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('adminSection') || 'landing';
+    }
+    return 'landing';
+  });
   const { isAuthenticated, login, isLoggingIn, isLoading } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -136,27 +145,66 @@ export default function AdminPage() {
     );
   }
 
-  return (
-    <>
-    <SectionWrapper id="admin-sidebar" >
-      <SidebarManagement />
-    </SectionWrapper>
-    <SectionWrapper id="admin-landing-page" >
-      <LandingPageManagement />
-    </SectionWrapper>
-    <SectionWrapper id="admin-about-me" >
-      <AboutMeManagement />
-    </SectionWrapper>
-    <SectionWrapper id="admin-dashboard" >
-      <ProjectManagement />
-    </SectionWrapper>
-    <SectionWrapper id="admin-career" >
-      <CareerTimelineManagement/>
-    </SectionWrapper>
-    <SectionWrapper id="admin-contact-messages" >
-      <ContactMessagesManagement/>
-    </SectionWrapper>
-    </>
+  const handleSectionChange = (section: string) => {
+    setCurrentSection(section);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('adminSection', section);
+    }
+  };
 
+  const renderSection = () => {
+    switch (currentSection) {
+      case 'landing':
+        return (
+          <SectionWrapper id="admin-landing-page">
+            <LandingPageManagement />
+          </SectionWrapper>
+        );
+      case 'sidebar':
+        return (
+          <SectionWrapper id="admin-sidebar">
+            <SidebarManagement />
+          </SectionWrapper>
+        );
+      case 'about':
+        return (
+          <SectionWrapper id="admin-about-me">
+            <AboutMeManagement />
+          </SectionWrapper>
+        );
+      case 'projects':
+        return (
+          <SectionWrapper id="admin-dashboard">
+            <ProjectManagement />
+          </SectionWrapper>
+        );
+      case 'career':
+        return (
+          <SectionWrapper id="admin-career">
+            <CareerTimelineManagement />
+          </SectionWrapper>
+        );
+      case 'messages':
+        return (
+          <SectionWrapper id="admin-contact-messages">
+            <ContactMessagesManagement />
+          </SectionWrapper>
+        );
+      default:
+        return (
+          <SectionWrapper id="admin-landing-page">
+            <LandingPageManagement />
+          </SectionWrapper>
+        );
+    }
+  };
+
+  return (
+    <AdminLayout
+      currentSection={currentSection}
+      onSectionChange={handleSectionChange}
+    >
+      {renderSection()}
+    </AdminLayout>
   );
 }

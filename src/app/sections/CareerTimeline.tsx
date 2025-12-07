@@ -19,7 +19,7 @@ import {
 import "react-vertical-timeline-component/style.min.css";
 import React, { useEffect, useState } from "react";
 import { careerAPI, type CareerEntry } from "@/api/careerAPI";
-import FlexibleButton from "@/components/button/FlexibleButton";
+import {Button} from "@/design-system/atoms/Button/Button";
 
 export default function CareerTimeline() {
   const [careerEntries, setCareerEntries] = useState<CareerEntry[]>([]);
@@ -124,9 +124,9 @@ export default function CareerTimeline() {
         {/* Show More/Reset Button */}
         {careerEntries.length > INITIAL_DISPLAY_COUNT && (
           <Box textAlign="center" mt={8}>
-            <FlexibleButton
+            <Button
               variant="outline"
-              icon={visibleCount >= careerEntries.length ? IoArrowUp : IoAdd}
+              _icon={visibleCount >= careerEntries.length ? IoArrowUp : IoAdd}
               onClick={() => {
                 if (visibleCount >= careerEntries.length) {
                   // All shown, reset to initial
@@ -147,7 +147,7 @@ export default function CareerTimeline() {
                     SHOW_MORE_INCREMENT,
                     careerEntries.length - visibleCount
                   )} More`}
-            </FlexibleButton>
+            </Button>
           </Box>
         )}
       </Box>

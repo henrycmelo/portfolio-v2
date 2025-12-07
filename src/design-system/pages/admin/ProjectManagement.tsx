@@ -47,14 +47,14 @@ import { projectsAPI } from "@/api/projectsAPI";
 
 // Utilities & Components
 import { toaster } from "@/components/ui/toaster";
-import ImageUpload from "./ImageUpload";
+import ImageUpload from "@/design-system/molecules/ImageUpload";
 import { uploadImageToSupabase, deleteImageFromSupabase } from "@/api/imageUploadAPI";
 
 // Design System - Atoms
-import { Button } from "@/design-system/atoms/Button";
-import { Text } from "@/design-system/atoms/Text";
-import { Input } from "@/design-system/atoms/Input";
-import { Textarea } from "@/design-system/atoms/Textarea";
+import { Button } from "@/design-system/atoms";
+import { Text } from "@/design-system/atoms";
+import { Input } from "@/design-system/atoms";
+import { Textarea } from "@/design-system/atoms";
 
 // Design System - Organisms & Templates
 import { PageHeader } from "@/design-system/organisms/PageHeader";

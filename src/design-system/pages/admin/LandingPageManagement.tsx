@@ -35,7 +35,7 @@ import { Toaster, toaster } from '../ui/toaster';
 import {Button} from '@/design-system/atoms/Button';
 import {Input} from '@/design-system/atoms/Input';
 import {Text} from '@/design-system/atoms/Text';
-import { Textarea } from "@/design-system/atoms/Textarea";
+import { Textarea } from "@/design-system/atoms";
 
 import { PageHeader } from '@/design-system/organisms/PageHeader';
 import { AdminPageTemplate } from '@/design-system/templates/AdminPageTemplate';

@@ -8,8 +8,8 @@ import {
   IoArrowForward,
   IoChatbubble,
 } from "react-icons/io5";
-import FlexibleButton from "@/components/button/FlexibleButton";
 import { landingAPI, LandingPageData } from "@/api/landingAPI";
+import {Button} from "@/design-system/atoms/Button/Button";
 
 export default function LandingSection() {
   const [landingData, setLandingData] = useState<LandingPageData | null>(null);
@@ -99,12 +99,12 @@ export default function LandingSection() {
           {/* Action Buttons */}
           <VStack gap={SPACING.scale.sm} align="flex-start" w="full">
             <HStack gap={SPACING.component.gap.md}>
-              <FlexibleButton variant="solid" icon={IoArrowForward}>
+              <Button type="primary" icon={IoArrowForward}>
                 See my work
-              </FlexibleButton>
-              <FlexibleButton variant="outline" icon={IoChatbubble}>
+              </Button>
+              <Button variant="outline" IconType={IoChatbubble}>
                 Let's talk
-              </FlexibleButton>
+              </Button>
             </HStack>
 
             {/* Caption below buttons */}

@@ -3,8 +3,8 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { COLORS } from "@/design-system/foundations";
 import { usePathname } from "next/navigation";
-import Sidebar from "./SideBar";
-import SiteHeader from "./Header";
+import Sidebar from "@/design-system/organisms/Sidebar";
+import SiteHeader from "@/design-system/organisms/SiteHeader";
 
 export default function SiteLayout({
   children,
@@ -15,12 +15,10 @@ export default function SiteLayout({
   const isAdminRoute = pathname?.startsWith('/admin');
 
   if (isAdminRoute) {
+    // Admin routes now use AdminLayout which includes header and sidebar
     return (
-      <Box h="100vh" display="flex" flexDirection="column">
-        <SiteHeader />
-        <Box flex="1" overflow="auto" bg={COLORS.brand.bg}>
-          {children}
-        </Box>
+      <Box h="100vh" bg={COLORS.brand.bg}>
+        {children}
       </Box>
     );
   }

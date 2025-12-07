@@ -3,7 +3,7 @@
 import { Box, Text, Spinner } from "@chakra-ui/react";
 import React, { useEffect, useState } from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
-import ReviewCard from "@/components/common/ReviewCard";
+import ReviewCard from "@/design-system/organisms/ReviewCard";
 import "@splidejs/react-splide/css";
 import { reviewsAPI, type DatabaseReview } from "@/api/reviewsAPI";
 

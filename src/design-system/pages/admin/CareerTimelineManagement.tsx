@@ -47,9 +47,9 @@ import { careerAPI } from "@/api/careerAPI";
 import { toaster } from "@/components/ui/toaster";
 
 // Design System - Atoms
-import { Button } from "@/design-system/atoms/Button";
-import { Text } from "@/design-system/atoms/Text";
-import { Input } from "@/design-system/atoms/Input";
+import { Button } from "@/design-system/atoms";
+import { Text } from "@/design-system/atoms";
+import { Input } from "@/design-system/atoms";
 import { Badge } from "@/design-system/atoms/Badge";
 
 // Design System - Organisms & Templates

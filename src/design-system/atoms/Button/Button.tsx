@@ -7,8 +7,10 @@
  *
  * Usage:
  *   <Button variant="primary" size="md">Click me</Button>
+ *   <Button variant="primary" icon={IoAdd} iconPosition="left">Add Item</Button>
  */
 
+import React from 'react';
 import { Button as ChakraButton, ButtonProps as ChakraButtonProps } from '@chakra-ui/react';
 import { COLORS, TYPOGRAPHY, SPACING, BORDERS } from '../../foundations';
 
@@ -30,6 +32,17 @@ export interface ButtonProps extends Omit<ChakraButtonProps, 'variant' | 'size'>
    * Size of the button
    */
   size?: 'sm' | 'md' | 'lg';
+
+  /**
+   * Icon component to display in the button
+   */
+  icon?: React.ComponentType;
+
+  /**
+   * Position of the icon
+   * @default 'left'
+   */
+  iconPosition?: 'left' | 'right';
 }
 
 // ============================================================================
@@ -39,6 +52,8 @@ export interface ButtonProps extends Omit<ChakraButtonProps, 'variant' | 'size'>
 export const Button = ({
   variant = 'primary',
   size = 'md',
+  icon: IconComponent,
+  iconPosition = 'left',
   children,
   ...rest
 }: ButtonProps) => {
@@ -98,7 +113,13 @@ export const Button = ({
       {...sizeStyles[size]}
       {...rest}
     >
+      {IconComponent && iconPosition === 'left' && (
+        <IconComponent style={{ marginRight: '8px' }} />
+      )}
       {children}
+      {IconComponent && iconPosition === 'right' && (
+        <IconComponent style={{ marginLeft: '8px' }} />
+      )}
     </ChakraButton>
   );
 };

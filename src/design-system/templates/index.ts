@@ -1,11 +1,9 @@
 /**
- * TEMPLATES INDEX
+ * TEMPLATES - Page Layouts
  *
- * Barrel export for all template components.
- * These are page-level layouts.
- *
- * Usage:
- *   import { AdminPageTemplate } from '@/design-system/templates'
+ * Templates are page-level layouts that combine organisms, molecules, and atoms.
  */
 
+export * from './AdminLayout';
 export * from './AdminPageTemplate';
+export { default as SiteLayout } from './SiteLayout';

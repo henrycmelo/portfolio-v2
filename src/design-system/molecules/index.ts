@@ -1,12 +1,10 @@
 /**
- * MOLECULES INDEX
+ * MOLECULES - Component Combinations
  *
- * Barrel export for all molecule components.
- * These are combinations of atoms.
- *
- * Usage:
- *   import { FormField, DataTable } from '@/design-system/molecules'
+ * Molecules are simple combinations of atoms that function together as a unit.
  */
 
 export * from './FormField';
 export * from './DataTable';
+export { default as SectionWrapper } from './SectionWrapper';
+export { default as ImageUpload } from './ImageUpload';

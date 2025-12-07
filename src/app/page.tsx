@@ -1,8 +1,8 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import SiteLayout from "@/components/layout/SiteLayout";
+import SiteLayout from "@/design-system/templates/SiteLayout";
 import { Box } from "@chakra-ui/react";
-import SectionWrapper from "@/components/common/SectionWrapper";
+import SectionWrapper from "@/design-system/molecules/SectionWrapper";
 import LandingSection from "./sections/LandingSection";
 import ProjectShowcaseCard from "../components/common/ProjectShowcaseCard";
 import { Text } from "@chakra-ui/react";

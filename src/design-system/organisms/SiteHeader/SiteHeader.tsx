@@ -8,9 +8,9 @@ import { Text } from "@/design-system/atoms";
 import { COLORS, SPACING, TYPOGRAPHY, BORDERS } from "@/design-system/foundations";
 import { IoChevronDownCircleOutline, IoDownload, IoPin } from "react-icons/io5";
 import { useEffect, useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "@/components/contexts/AuthContext";
 import { usePathname } from "next/navigation";
-import FlexibleButton from "../button/FlexibleButton";
+import {Button} from "@/design-system/atoms/Button/Button";
 
 export default function SiteHeader() {
   const [currentTime, setCurrentTime] = useState(new Date())
@@ -68,9 +68,9 @@ export default function SiteHeader() {
           </Text>
 
           {isAdminRoute && isAuthenticated && (
-            <FlexibleButton variant='ghost' onClick={logout} color={COLORS.brand.error}>
+            <Button variant='ghost' onClick={logout} color={COLORS.brand.error}>
               Logout
-            </FlexibleButton>
+            </Button>
           )}
         </HStack>
       </Flex>
