@@ -33,6 +33,7 @@ export const Input = ({
 }: InputProps) => {
   return (
     <ChakraInput
+      width="100%"
       borderColor={COLORS.ui.inputBorder}
       borderRadius={BORDERS.radius.md}
       _placeholder={{
@@ -47,6 +48,7 @@ export const Input = ({
       }}
       px={SPACING.component.padding.input.x}
       py={SPACING.component.padding.input.y}
+      color={COLORS.brand.textMuted}
       {...rest}
     />
   );

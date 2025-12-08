@@ -22,7 +22,7 @@ import { IoTrash, IoMail, IoMailOpen, IoArchive, IoChevronDown, IoChevronUp } fr
 import { contactAPI, ContactMessage } from '@/api/contactAPI';
 
 // Utilities & Components
-import { Toaster, toaster } from '../ui/toaster';
+import { Toaster, toaster } from '@/components/ui/toaster';
 
 //design system -Atoms
 import {Button} from '@/design-system/atoms/Button';

@@ -27,6 +27,7 @@ export const Textarea = ({
 }: TextareaProps) => {
   return (
     <ChakraTextarea
+      width="100%"
       borderColor={COLORS.ui.inputBorder}
       borderRadius={BORDERS.radius.md}
       _placeholder={{

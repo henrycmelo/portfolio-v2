@@ -24,8 +24,8 @@ import { IoChevronDown, IoChevronUp, IoAdd } from 'react-icons/io5';
 import { aboutAPI, AboutData } from '@/api/aboutAPI';
 
 // Utilities & Components
-import { Toaster, toaster } from '../ui/toaster';
-import ImageUpload from './ImageUpload';
+import { Toaster, toaster } from '@/components/ui/toaster';
+import ImageUpload from '@/design-system/molecules/ImageUpload';
 import { uploadImageToSupabase, deleteImageFromSupabase } from '@/api/imageUploadAPI';
 
 //design system -Atoms

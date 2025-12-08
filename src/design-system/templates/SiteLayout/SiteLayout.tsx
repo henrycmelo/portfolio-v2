@@ -30,7 +30,7 @@ export default function SiteLayout({
       <Box flex="1" display="flex" flexDirection="column">
         <SiteHeader />
 
-        <Box flex="1" overflow="auto" bg={COLORS.brand.bg}>
+        <Box flex="1" overflow="auto" bg={COLORS.brand.bg} data-scroll-container="true">
           {children}
         </Box>
       </Box>

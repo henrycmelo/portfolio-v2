@@ -29,7 +29,7 @@ import { landingAPI } from '@/api/landingAPI';
 import { LandingPageData } from '@/api/landingAPI';
 
 // Utilities & Components
-import { Toaster, toaster } from '../ui/toaster';
+import { Toaster, toaster } from '@/components/ui/toaster';
 
 //design system -Atoms
 import {Button} from '@/design-system/atoms/Button';

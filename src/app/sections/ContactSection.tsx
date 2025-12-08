@@ -104,17 +104,20 @@ export default function ContactSection() {
       mx="auto"
     >
       {/* Content Area */}
-      <Box p={{
-        base: SPACING.container.padding.base,
-        md: SPACING.container.padding.md,
-        lg: SPACING.container.padding.lg
-      }}>
+      <Box
+        w="full"
+        p={{
+          base: SPACING.container.padding.base,
+          md: SPACING.container.padding.md,
+          lg: SPACING.container.padding.lg
+        }}
+      >
         {/* Section Title */}
         <Text
           fontSize={{
-            base: TYPOGRAPHY.sizes['2xl'],
-            md: TYPOGRAPHY.sizes['3xl'],
-            lg: TYPOGRAPHY.sizes['4xl']
+            base: TYPOGRAPHY.sizes['3xl'],
+            md: TYPOGRAPHY.sizes['4xl'],
+            lg: TYPOGRAPHY.sizes['5xl']
           }}
           fontWeight={TYPOGRAPHY.weights.bold}
           color={COLORS.brand.primary}
@@ -126,8 +129,8 @@ export default function ContactSection() {
         {/* Description */}
         <Text
           fontSize={{
-            base: TYPOGRAPHY.sizes.md,
-            md: TYPOGRAPHY.sizes.lg
+            base: TYPOGRAPHY.sizes.sm,
+            md: TYPOGRAPHY.sizes.md
           }}
           color={COLORS.brand.textMuted}
           lineHeight={TYPOGRAPHY.lineHeights.relaxed}
@@ -140,9 +143,9 @@ export default function ContactSection() {
         <Box
           as="form"
           onSubmit={handleSubmit}
-          maxW={SIZES.container.lg}
+          w="full"
         >
-          <VStack gap={SPACING.scale.lg} align="stretch">
+          <VStack gap={SPACING.scale.lg} align="stretch" w="full">
             {/* Name Field */}
             <Box>
               <Text
@@ -159,6 +162,7 @@ export default function ContactSection() {
                 placeholder="Your name"
                 required
                 disabled={isSubmitting}
+                w="full"
               />
             </Box>
 
@@ -179,6 +183,7 @@ export default function ContactSection() {
                 placeholder="your.email@example.com"
                 required
                 disabled={isSubmitting}
+                w="full"
               />
             </Box>
 
@@ -199,6 +204,7 @@ export default function ContactSection() {
                 rows={6}
                 required
                 disabled={isSubmitting}
+                w="full"
               />
             </Box>
 

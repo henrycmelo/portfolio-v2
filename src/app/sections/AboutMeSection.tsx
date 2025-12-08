@@ -57,6 +57,7 @@ export default function AboutMeSection() {
             md: TYPOGRAPHY.sizes['4xl'],
             lg: TYPOGRAPHY.sizes['5xl']
           }}
+          
           fontWeight={TYPOGRAPHY.weights.bold}
           color={COLORS.brand.primary}
           mb={SPACING.scale.xl}
@@ -88,8 +89,8 @@ export default function AboutMeSection() {
                 {aboutData.subtitle_1 && (
                   <Text
                     fontSize={{
-                      base: TYPOGRAPHY.sizes.xl,
-                      md: TYPOGRAPHY.sizes['2xl']
+                      base: TYPOGRAPHY.sizes.lg,
+                      md: TYPOGRAPHY.sizes['xl']
                     }}
                     fontWeight={TYPOGRAPHY.weights.semibold}
                     color={COLORS.brand.primary}
@@ -100,8 +101,8 @@ export default function AboutMeSection() {
                 )}
                 <Text
                   fontSize={{
-                    base: TYPOGRAPHY.sizes.md,
-                    md: TYPOGRAPHY.sizes.lg
+                    base: TYPOGRAPHY.sizes.sm,
+                    md: TYPOGRAPHY.sizes.md
                   }}
                   color={COLORS.brand.text}
                   lineHeight={TYPOGRAPHY.lineHeights.relaxed}
@@ -115,8 +116,8 @@ export default function AboutMeSection() {
                 {aboutData.subtitle_2 && (
                   <Text
                     fontSize={{
-                      base: TYPOGRAPHY.sizes.xl,
-                      md: TYPOGRAPHY.sizes['2xl']
+                      base: TYPOGRAPHY.sizes.md,
+                      md: TYPOGRAPHY.sizes['xl']
                     }}
                     fontWeight={TYPOGRAPHY.weights.semibold}
                     color={COLORS.brand.primary}
@@ -127,8 +128,8 @@ export default function AboutMeSection() {
                 )}
                 <Text
                   fontSize={{
-                    base: TYPOGRAPHY.sizes.md,
-                    md: TYPOGRAPHY.sizes.lg
+                    base: TYPOGRAPHY.sizes.sm,
+                    md: TYPOGRAPHY.sizes.md
                   }}
                   color={COLORS.brand.text}
                   lineHeight={TYPOGRAPHY.lineHeights.relaxed}
@@ -142,8 +143,8 @@ export default function AboutMeSection() {
                 {aboutData.subtitle_3 && (
                   <Text
                     fontSize={{
-                      base: TYPOGRAPHY.sizes.xl,
-                      md: TYPOGRAPHY.sizes['2xl']
+                      base: TYPOGRAPHY.sizes.lg,
+                      md: TYPOGRAPHY.sizes['xl']
                     }}
                     fontWeight={TYPOGRAPHY.weights.semibold}
                     color={COLORS.brand.primary}
@@ -154,8 +155,8 @@ export default function AboutMeSection() {
                 )}
                 <Text
                   fontSize={{
-                    base: TYPOGRAPHY.sizes.md,
-                    md: TYPOGRAPHY.sizes.lg
+                    base: TYPOGRAPHY.sizes.sm,
+                    md: TYPOGRAPHY.sizes.md
                   }}
                   color={COLORS.brand.text}
                   lineHeight={TYPOGRAPHY.lineHeights.relaxed}
@@ -180,7 +181,7 @@ export default function AboutMeSection() {
               overflow="hidden"
               border={BORDERS.widths.thin}
               borderColor={COLORS.ui.containerBorder}
-              boxShadow={SHADOWS.box.card}
+              boxShadow={SHADOWS.box.container}
             >
               <Image
                 src={aboutData.image_url}

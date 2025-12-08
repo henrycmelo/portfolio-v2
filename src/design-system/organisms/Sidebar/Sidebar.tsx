@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { Text } from "@/design-system/atoms";
 import { COLORS, SPACING, TYPOGRAPHY, BORDERS } from "@/design-system/foundations";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Tooltip } from "@/components/ui/tooltip";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -41,8 +41,11 @@ export default function Sidebar({
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [sidebarData, setSidebarData] = useState<SidebarData | null>(null);
+  const [activeSection, setActiveSection] = useState("");
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   const activeMenuItems = customMenuItems || menuItems;
+  const sections = activeMenuItems.map(item => ({ id: item.href.replace('#', '') }));
 
   useEffect(() => {
     if (showProfile) {
@@ -62,6 +65,63 @@ export default function Sidebar({
   }, [showProfile]);
 
   const shouldShowSidebar = isCollapsed;
+
+  useEffect(()=>{
+    contentRef.current = document.querySelector('[data-scroll-container="true"]')
+  })
+
+  const scrollToSection = (sectionId: string) => {
+    const sectionElement = document.getElementById(sectionId);
+    sectionElement?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }
+
+  useEffect(()=>{
+    const container = contentRef.current;
+
+    const handleScroll = () => {
+      if(!container) return;
+
+      let currentSection="";
+      const containerRect = container.getBoundingClientRect();
+      const triggerPoint = containerRect.top + containerRect.height / 3;
+
+      sections?.forEach((section) =>{
+        const element = document.getElementById(section.id)
+        if(element){
+          const rect= element.getBoundingClientRect();
+
+          if(rect.top <= triggerPoint && rect.bottom >= triggerPoint){
+            currentSection = section.id;
+        }
+      }
+    });
+     setActiveSection(currentSection);
+    };
+
+    if (container) {
+      // Add scroll listener to the container
+      container.addEventListener("scroll", handleScroll); // Without this, we wouldn't detect when someone scrolls inside the right content area
+
+      handleScroll(); //It ensures that the correct section is highlighted right when the page loads
+
+      window.addEventListener("scroll", handleScroll); //It's a safety net to catch all possible scroll scenarios
+    }
+
+    // Cleanup
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", handleScroll);
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [sections]);
+
+
+
+
 
   return (
     <Box
@@ -117,11 +177,14 @@ export default function Sidebar({
           const sectionId = item.href.replace('#', '');
           const isActive = isAdminMode
             ? currentSection === sectionId
-            : pathname === item.href;
+            : activeSection === sectionId;
 
-          const handleClick = () => {
+          const handleClick = (e: React.MouseEvent) => {
             if (isAdminMode && onSectionChange) {
               onSectionChange(sectionId);
+            } else {
+              e.preventDefault();
+              scrollToSection(sectionId);
             }
           };
 
@@ -129,8 +192,8 @@ export default function Sidebar({
             <Box
               borderRadius={BORDERS.radius.md}
               bg={isActive ? COLORS.brand.accent : "transparent"}
-              _hover={{ bg: isActive ? COLORS.brand.selected : COLORS.brand.divider }}
-              onClick={isAdminMode ? handleClick : undefined}
+              _hover={{ bg: isActive ? COLORS.brand.accent : COLORS.brand.divider }}
+              onClick={handleClick}
             >
               <HStack
                 px={{ base: SPACING.scale.xs, md: SPACING.component.gap.lg }}
@@ -147,6 +210,7 @@ export default function Sidebar({
                   fontSize={TYPOGRAPHY.sizes.sm}
                   fontWeight={isActive ? TYPOGRAPHY.weights.medium : TYPOGRAPHY.weights.normal}
                   display={{ base: "none", md: shouldShowSidebar? "none":"block" }}
+                  color={isActive ? COLORS.brand.white : COLORS.brand.secondary}
                 >
                   {item.label}
                 </Text>
@@ -168,20 +232,16 @@ export default function Sidebar({
             );
           }
 
-          // Regular mode with Link
+          // Regular mode - render without Link since we handle click
           return (
-            <Link
-              key={item.label}
-              href={item.href}
-              style={{ textDecoration: "none" }}
-            >
+            <Box key={item.label}>
               <Box display={{ base: "block", md: "none" }}>
                 <Tooltip showArrow content={item.label}>
                   {menuButton}
                 </Tooltip>
               </Box>
               <Box display={{ base: "none", md: "block" }}>{menuButton}</Box>
-            </Link>
+            </Box>
           );
         })}
       </VStack>

@@ -109,17 +109,14 @@ export const Button = ({
       borderRadius={BORDERS.radius.md}
       fontWeight={TYPOGRAPHY.weights.medium}
       transition="all 0.2s"
+      gap={IconComponent ? '8px' : 0}
       {...variantStyles[variant]}
       {...sizeStyles[size]}
       {...rest}
     >
-      {IconComponent && iconPosition === 'left' && (
-        <IconComponent style={{ marginRight: '8px' }} />
-      )}
+      {IconComponent && iconPosition === 'left' && <IconComponent />}
       {children}
-      {IconComponent && iconPosition === 'right' && (
-        <IconComponent style={{ marginLeft: '8px' }} />
-      )}
+      {IconComponent && iconPosition === 'right' && <IconComponent />}
     </ChakraButton>
   );
 };

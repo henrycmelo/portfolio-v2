@@ -45,8 +45,10 @@ const ReviewCard = ({ review }: { review: Review }) => {
       mx="auto"
       w={"full"}
       h="auto"
-      p={SPACING.component.padding.card.y}
-      boxShadow={SHADOWS.box.container}
+      py={SPACING.component.padding.card.y}
+      px={SPACING.component.padding.card.x}
+      bg={COLORS.brand.white}
+      
       border="1px solid"
       borderColor={COLORS.ui.containerBorder}
       borderRadius={BORDERS.radius.md}

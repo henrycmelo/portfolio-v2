@@ -3,7 +3,6 @@
 import { useState } from "react";
 import {
   Box,
-  Button,
   Input,
   VStack,
   Text,
@@ -20,10 +19,10 @@ import {
   ContactMessagesManagement
 } from "@/design-system/pages/admin";
 import { toaster } from "@/components/ui/toaster";
-import FlexibleButton from "@/components/button/FlexibleButton";
 import { useAuth } from "@/components/contexts/AuthContext";
 import { SectionWrapper } from "@/design-system/molecules";
 import { AdminLayout } from "@/design-system/templates";
+import { Button } from "@/design-system/atoms/Button/Button";
 
 export default function AdminPage() {
   const [email, setEmail] = useState("");
@@ -128,7 +127,7 @@ export default function AdminPage() {
                   </Alert.Root>
                 )}
 
-                <FlexibleButton type="submit" w="full" disabled={isLoggingIn}>
+                <Button type="submit" w="full" disabled={isLoggingIn}>
                   {isLoggingIn ? (
                     <>
                       <Spinner size={"sm"} /> Logging in
@@ -136,7 +135,7 @@ export default function AdminPage() {
                   ) : (
                     "Login"
                   )}
-                </FlexibleButton>
+                </Button>
               </VStack>
             </form>
           </VStack>

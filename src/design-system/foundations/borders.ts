@@ -39,10 +39,23 @@ export const BORDER_STYLES = {
 } as const;
 
 // ============================================================================
+// COMBINED BORDERS (width + style)
+// ============================================================================
+export const BORDER_COMBINED = {
+  none: '0',
+  thin: '1px solid',
+  medium: '2px solid',
+  thick: '4px solid',
+  thinDashed: '1px dashed',
+  mediumDashed: '2px dashed',
+} as const;
+
+// ============================================================================
 // MAIN EXPORT
 // ============================================================================
 export const BORDERS = {
   radius: BORDER_RADIUS,
   widths: BORDER_WIDTHS,
   styles: BORDER_STYLES,
+  default: BORDER_COMBINED,
 } as const;

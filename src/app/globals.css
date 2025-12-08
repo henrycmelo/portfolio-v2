@@ -54,7 +54,7 @@ a {
   background: #ffffff !important;
   border: 1px solid #e2e8f0 !important;
   border-radius: 8px !important;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: none !important;
 }
 
 .vertical-timeline-element-content-arrow {
@@ -65,11 +65,16 @@ a {
   color: #718096 !important;
   font-weight: 500 !important;
   font-size: 14px !important;
+  padding-inline: 4px;
 }
 
 .vertical-timeline::before {
   background: var(--chakra-colors-brand-divider) !important;
   width: 3px !important;
+}
+
+.vertical-timeline-element-icon {
+  box-shadow: none !important;
 }
 
 /* Responsive adjustments */
@@ -94,6 +99,9 @@ a {
     width: 40px !important;
     height: 40px !important;
     left: 5px !important;
+  }
+  .vertical-timeline-element-icon{
+    box-shadow: none !important;
   }
 }
 

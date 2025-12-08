@@ -31,20 +31,16 @@ export default function ProjectShowcaseCard({
 }: ProjectShowcaseProps) {
   return (
     <Box
-      maxW={SIZES.container['5xl']}
       w="full"
-      bg={COLORS.ui.containerBg}
-      borderRadius={BORDERS.radius.md}
-      boxShadow={SHADOWS.box.container}
-      overflow="hidden"
-      border="1px solid"
-      borderColor={COLORS.ui.containerBorder}
-      mx="auto"
       p={{
-        base: SPACING.container.padding.base,
-        md: SPACING.container.padding.md,
-        lg: SPACING.container.padding.lg
+        base: SPACING.scale.lg,
+        md: SPACING.scale.xl
       }}
+      bg={COLORS.brand.white}
+      borderRadius={BORDERS.radius.lg}
+      border={BORDERS.default.thin}
+      borderColor={COLORS.ui.containerBorder}
+      transition="all 0.2s ease-in-out"
     >
       {/* Header */}
 

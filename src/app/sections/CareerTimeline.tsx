@@ -19,7 +19,8 @@ import {
 import "react-vertical-timeline-component/style.min.css";
 import React, { useEffect, useState } from "react";
 import { careerAPI, type CareerEntry } from "@/api/careerAPI";
-import {Button} from "@/design-system/atoms/Button/Button";
+import { Button } from "@/design-system/atoms/Button/Button";
+import { COLORS, SPACING, BORDERS, SHADOWS, TYPOGRAPHY, SIZES } from "@/design-system/foundations";
 
 export default function CareerTimeline() {
   const [careerEntries, setCareerEntries] = useState<CareerEntry[]>([]);
@@ -67,15 +68,37 @@ export default function CareerTimeline() {
 
   return (
     <Box
-      maxW="6xl"
+      maxW={SIZES.container['5xl']}
       w="full"
-      borderRadius="md"
+      bg={COLORS.ui.containerBg}
+      borderRadius={BORDERS.radius.md}
+      boxShadow={SHADOWS.box.container}
       overflow="hidden"
-      
+      border={BORDERS.widths.thin}
+      borderColor={COLORS.ui.containerBorder}
       mx="auto"
     >
-      {/* Timeline Content */}
-      
+      {/* Content Area */}
+      <Box p={{
+        base: SPACING.container.padding.base,
+        md: SPACING.container.padding.md,
+        lg: SPACING.container.padding.lg
+      }}>
+        {/* Section Title */}
+        <Text
+          fontSize={{
+            base: TYPOGRAPHY.sizes['3xl'],
+            md: TYPOGRAPHY.sizes['4xl'],
+            lg: TYPOGRAPHY.sizes['5xl']
+          }}
+          fontWeight={TYPOGRAPHY.weights.bold}
+          color={COLORS.brand.primary}
+          mb={SPACING.scale.xl}
+        >
+          Career Timeline
+        </Text>
+
+        {/* Timeline Content */}
         <VerticalTimeline>
           {careerEntries.slice(0, visibleCount).map((item) => {
             const isEducation = item.entry_type === "education";
@@ -83,17 +106,18 @@ export default function CareerTimeline() {
             return (
               <VerticalTimelineElement
                 key={item.id}
-              
                 contentStyle={{
                   background: "var(--chakra-colors-brand-white) !important",
                   color: "var(--chakra-colors-brand-primary) !important",
-                  border: "1px solid ",
+                  border: "1px solid var(--chakra-colors-brand-divider) !important",
                   borderRadius: "md",
-                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
+                  boxShadow: "none !important",
                 }}
+                
+                
                 contentArrowStyle={{
                   borderRight:
-                    "7px solid var(--chakra-colors-brand-white) !important",
+                    "7px solid var(--chakra-colors-brand-divider) !important",
                   borderRightColor:
                     "var(--chakra-colors-brand-divider) !important",
                 }}
@@ -102,6 +126,8 @@ export default function CareerTimeline() {
                 iconStyle={{
                   background: "var(--chakra-colors-brand-white) !important",
                   color: "var(--chakra-colors-brand-secondary) !important",
+                  border: "1px solid var(--chakra-colors-brand-divider) !important",
+                  
                   
                 }}
                 icon={
@@ -126,7 +152,7 @@ export default function CareerTimeline() {
           <Box textAlign="center" mt={8}>
             <Button
               variant="outline"
-              _icon={visibleCount >= careerEntries.length ? IoArrowUp : IoAdd}
+              icon={visibleCount >= careerEntries.length ? IoArrowUp : IoAdd}
               onClick={() => {
                 if (visibleCount >= careerEntries.length) {
                   // All shown, reset to initial
@@ -151,6 +177,6 @@ export default function CareerTimeline() {
           </Box>
         )}
       </Box>
-   
+    </Box>
   );
 }

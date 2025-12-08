@@ -59,9 +59,9 @@ export default function LandingSection() {
           {/* Greeting */}
           <Text
             fontSize={{
-              base: TYPOGRAPHY.sizes['2xl'],
-              md: TYPOGRAPHY.sizes['3xl'],
-              lg: TYPOGRAPHY.sizes['4xl']
+              base: TYPOGRAPHY.sizes['lg'],
+              md: TYPOGRAPHY.sizes['xl'],
+              lg: TYPOGRAPHY.sizes['2xl']
             }}
             color={COLORS.brand.secondary}
             fontWeight={TYPOGRAPHY.weights.normal}
@@ -86,8 +86,8 @@ export default function LandingSection() {
           {/* Description */}
           <Text
             fontSize={{
-              base: TYPOGRAPHY.sizes.lg,
-              md: TYPOGRAPHY.sizes.xl
+              base: TYPOGRAPHY.sizes.sm,
+              md: TYPOGRAPHY.sizes.md
             }}
             color={COLORS.brand.textMuted}
             lineHeight={TYPOGRAPHY.lineHeights.relaxed}
@@ -99,10 +99,10 @@ export default function LandingSection() {
           {/* Action Buttons */}
           <VStack gap={SPACING.scale.sm} align="flex-start" w="full">
             <HStack gap={SPACING.component.gap.md}>
-              <Button type="primary" icon={IoArrowForward}>
+              <Button variant="primary" icon={IoArrowForward}>
                 See my work
               </Button>
-              <Button variant="outline" IconType={IoChatbubble}>
+              <Button variant="outline" icon={IoChatbubble}>
                 Let's talk
               </Button>
             </HStack>
@@ -110,7 +110,7 @@ export default function LandingSection() {
             {/* Caption below buttons */}
             {landingData.hero_caption && (
               <Text
-                fontSize={TYPOGRAPHY.sizes.sm}
+                fontSize={TYPOGRAPHY.sizes.xs}
                 color={COLORS.brand.textMuted}
                 fontStyle="italic"
                 mt={SPACING.scale.xs}
