@@ -4,7 +4,7 @@ import { projectsAPI } from "@/api/projectsAPI";
 import { Box, Spinner, VStack } from "@chakra-ui/react";
 import { Text } from "@/design-system/atoms";
 import React, { useEffect, useState } from "react";
-import { COLORS, SPACING, BORDERS, SHADOWS, TYPOGRAPHY, SIZES } from "@/design-system/foundations";
+import { COLORS, SPACING, TYPOGRAPHY, SIZES } from "@/design-system/foundations";
 
 export interface Project {
   id: number;
@@ -55,51 +55,49 @@ export default function Projects() {
     return (
         <Box
             maxW={SIZES.container['5xl']}
-            w="full"
-            bg={COLORS.ui.containerBg}
-            borderRadius={BORDERS.radius.md}
-            overflow="hidden"
-            border={BORDERS.default.thin}
-            borderColor={COLORS.ui.containerBorder}
+            w="100%"
             mx="auto"
         >
-            {/* Content Area */}
-            <Box p={{
-                base: SPACING.container.padding.base,
-                md: SPACING.container.padding.md,
-                lg: SPACING.container.padding.lg
-            }}>
-                {/* Section Title */}
-                <Text
-                    fontSize={{
-                        base: TYPOGRAPHY.sizes['3xl'],
-                        md: TYPOGRAPHY.sizes['4xl'],
-                        lg: TYPOGRAPHY.sizes['5xl']
-                    }}
-                    fontWeight={TYPOGRAPHY.weights.bold}
-                    color={COLORS.brand.primary}
-                    mb={SPACING.scale.xl}
-                >
-                    Projects
-                </Text>
+            {/* Section Title */}
+            <Text
+                fontSize={{
+                    base: TYPOGRAPHY.sizes['2xl'],
+                    md: TYPOGRAPHY.sizes['3xl'],
+                    lg: TYPOGRAPHY.sizes['4xl']
+                }}
+                fontWeight={TYPOGRAPHY.weights.bold}
+                color={COLORS.brand.primary}
+                mb={{
+                    base: SPACING.scale.lg,
+                    md: SPACING.scale.xl
+                }}
+            >
+                Projects
+            </Text>
 
-                {/* Projects List */}
-                <VStack gap={SPACING.scale['2xl']} align="stretch" w="full">
-                    {projects.map((project) => (
-                        <ProjectShowcaseCard
-                            key={project.id}
-                            company_name={project.company_name}
-                            company_logo_url={project.company_logo_url}
-                            title={project.title}
-                            mockup_url={project.mockup_url}
-                            problem={project.problem}
-                            solution={project.solution}
-                            benefit={project.benefit}
-                            role={project.role}
-                        />
-                    ))}
-                </VStack>
-            </Box>
+            {/* Projects List */}
+            <VStack
+                gap={{
+                    base: SPACING.scale.xl,
+                    md: SPACING.scale['2xl']
+                }}
+                align="stretch"
+                w="100%"
+            >
+                {projects.map((project) => (
+                    <ProjectShowcaseCard
+                        key={project.id}
+                        company_name={project.company_name}
+                        company_logo_url={project.company_logo_url}
+                        title={project.title}
+                        mockup_url={project.mockup_url}
+                        problem={project.problem}
+                        solution={project.solution}
+                        benefit={project.benefit}
+                        role={project.role}
+                    />
+                ))}
+            </VStack>
         </Box>
     );
 }

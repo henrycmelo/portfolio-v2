@@ -1,4 +1,4 @@
-import { IoHome, IoPersonCircle, IoFolder, IoBriefcase, IoMail, IoMenu } from "react-icons/io5";
+import { IoHome, IoPersonCircle, IoFolder, IoBriefcase, IoMail, IoMenu, IoColorPalette } from "react-icons/io5";
 
 export const adminMenuItems = [
   { icon: IoHome, label: "Landing Page", href: "#landing" },
@@ -7,4 +7,5 @@ export const adminMenuItems = [
   { icon: IoFolder, label: "Projects", href: "#projects" },
   { icon: IoBriefcase, label: "Career Timeline", href: "#career" },
   { icon: IoMail, label: "Messages", href: "#messages" },
+  { icon: IoColorPalette, label: "Design System", href: "#storybook" },
 ];

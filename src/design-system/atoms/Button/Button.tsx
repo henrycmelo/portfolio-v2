@@ -85,22 +85,22 @@ export const Button = ({
     },
   };
 
-  // Size styles
+  // Size styles - responsive
   const sizeStyles = {
     sm: {
-      fontSize: TYPOGRAPHY.sizes.sm,
-      px: SPACING.component.padding.button.x,
-      py: SPACING.component.padding.button.y - 1,
+      fontSize: { base: TYPOGRAPHY.sizes.xs, md: TYPOGRAPHY.sizes.sm },
+      px: { base: SPACING.component.padding.button.x - 2, md: SPACING.component.padding.button.x },
+      py: { base: SPACING.component.padding.button.y - 1, md: SPACING.component.padding.button.y - 1 },
     },
     md: {
-      fontSize: TYPOGRAPHY.sizes.md,
-      px: SPACING.component.padding.button.x,
-      py: SPACING.component.padding.button.y,
+      fontSize: { base: TYPOGRAPHY.sizes.sm, md: TYPOGRAPHY.sizes.md },
+      px: { base: SPACING.component.padding.button.x - 1, md: SPACING.component.padding.button.x },
+      py: { base: SPACING.component.padding.button.y - 0.5, md: SPACING.component.padding.button.y },
     },
     lg: {
-      fontSize: TYPOGRAPHY.sizes.lg,
-      px: SPACING.component.padding.button.x + 2,
-      py: SPACING.component.padding.button.y + 1,
+      fontSize: { base: TYPOGRAPHY.sizes.md, md: TYPOGRAPHY.sizes.lg },
+      px: { base: SPACING.component.padding.button.x, md: SPACING.component.padding.button.x + 2 },
+      py: { base: SPACING.component.padding.button.y, md: SPACING.component.padding.button.y + 1 },
     },
   };
 

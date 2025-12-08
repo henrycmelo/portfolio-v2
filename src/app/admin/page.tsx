@@ -16,7 +16,8 @@ import {
   LandingPageManagement,
   SidebarManagement,
   AboutMeManagement,
-  ContactMessagesManagement
+  ContactMessagesManagement,
+  DesignSystemStorybook
 } from "@/design-system/pages/admin";
 import { toaster } from "@/components/ui/toaster";
 import { useAuth } from "@/components/contexts/AuthContext";
@@ -187,6 +188,12 @@ export default function AdminPage() {
         return (
           <SectionWrapper id="admin-contact-messages">
             <ContactMessagesManagement />
+          </SectionWrapper>
+        );
+      case 'storybook':
+        return (
+          <SectionWrapper id="admin-storybook">
+            <DesignSystemStorybook />
           </SectionWrapper>
         );
       default:

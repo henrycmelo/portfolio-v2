@@ -21,14 +21,16 @@ export default function SectionWrapper({
     <Box
       id={id}
       minH={minHeight}
+      w="full"
       px={{
-        base: SPACING.container.padding.base - 2,
+        base: SPACING.scale.md,
         md: SPACING.container.padding.md,
         lg: SPACING.container.padding.lg
       }}
       py={{
-        base: SPACING.container.padding.base,
-        md: SPACING.container.padding.md
+        base: SPACING.scale.lg,
+        md: SPACING.scale.xl,
+        lg: SPACING.scale['2xl']
       }}
     >
       {children}

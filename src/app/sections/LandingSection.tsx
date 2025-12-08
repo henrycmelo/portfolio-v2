@@ -40,7 +40,7 @@ export default function LandingSection() {
   return (
     <Box
       maxW={SIZES.container['5xl']}
-      w="full"
+      w="100%"
       bg={COLORS.ui.containerBg}
       borderRadius={BORDERS.radius.md}
       boxShadow={SHADOWS.box.container}
@@ -48,57 +48,72 @@ export default function LandingSection() {
       border={BORDERS.widths.thin}
       borderColor={COLORS.ui.containerBorder}
       mx="auto"
-    >
-      {/* Content Area */}
-      <Box p={{
-        base: SPACING.container.padding.base,
+      p={{
+        base: SPACING.scale.md,
         md: SPACING.container.padding.md,
         lg: SPACING.container.padding.lg
-      }}>
-        <VStack gap={SPACING.component.gap.lg} align="flex-start">
-          {/* Greeting */}
-          <Text
-            fontSize={{
-              base: TYPOGRAPHY.sizes['lg'],
-              md: TYPOGRAPHY.sizes['xl'],
-              lg: TYPOGRAPHY.sizes['2xl']
-            }}
-            color={COLORS.brand.secondary}
-            fontWeight={TYPOGRAPHY.weights.normal}
-          >
-            {landingData.hero_subtitle}
-          </Text>
+      }}
+    >
+      <VStack
+        gap={{
+          base: SPACING.scale.md,
+          md: SPACING.component.gap.lg
+        }}
+        align="flex-start"
+        w="100%"
+      >
+        {/* Greeting */}
+        <Text
+          fontSize={{
+            base: TYPOGRAPHY.sizes.md,
+            md: TYPOGRAPHY.sizes['xl'],
+            lg: TYPOGRAPHY.sizes['2xl']
+          }}
+          color={COLORS.brand.secondary}
+          fontWeight={TYPOGRAPHY.weights.normal}
+          w="100%"
+        >
+          {landingData.hero_subtitle}
+        </Text>
 
-          {/* Main Headline */}
-          <Text
-            fontSize={{
-              base: '4xl',
-              md: '5xl',
-              lg: '6xl'
-            }}
-            fontWeight={TYPOGRAPHY.weights.bold}
-            lineHeight={TYPOGRAPHY.lineHeights.tight}
-            color={COLORS.brand.primary}
-          >
-            {landingData.hero_title}
-          </Text>
+        {/* Main Headline */}
+        <Text
+          fontSize={{
+            base: TYPOGRAPHY.sizes['3xl'],
+            md: TYPOGRAPHY.sizes['5xl'],
+            lg: '6xl'
+          }}
+          fontWeight={TYPOGRAPHY.weights.bold}
+          lineHeight={TYPOGRAPHY.lineHeights.tight}
+          color={COLORS.brand.primary}
+          w="100%"
+          wordBreak="break-word"
+          overflowWrap="break-word"
+        >
+          {landingData.hero_title}
+        </Text>
 
-          {/* Description */}
-          <Text
-            fontSize={{
-              base: TYPOGRAPHY.sizes.sm,
-              md: TYPOGRAPHY.sizes.md
-            }}
-            color={COLORS.brand.textMuted}
-            lineHeight={TYPOGRAPHY.lineHeights.relaxed}
-            maxW="2xl"
-          >
-            {landingData.hero_paragraph}
-          </Text>
+        {/* Description */}
+        <Text
+          fontSize={{
+            base: TYPOGRAPHY.sizes.sm,
+            md: TYPOGRAPHY.sizes.md
+          }}
+          color={COLORS.brand.textMuted}
+          lineHeight={TYPOGRAPHY.lineHeights.relaxed}
+          maxW="2xl"
+          w="100%"
+        >
+          {landingData.hero_paragraph}
+        </Text>
 
-          {/* Action Buttons */}
-          <VStack gap={SPACING.scale.sm} align="flex-start" w="full">
-            <HStack gap={SPACING.component.gap.md}>
+        {/* Action Buttons */}
+        <VStack gap={SPACING.scale.sm} align="flex-start" w="100%">
+          <HStack
+            gap={SPACING.component.gap.md}
+            flexWrap="wrap"
+            w="100%"
+          >
               <Button variant="primary" icon={IoArrowForward}>
                 See my work
               </Button>
@@ -107,21 +122,19 @@ export default function LandingSection() {
               </Button>
             </HStack>
 
-            {/* Caption below buttons */}
-            {landingData.hero_caption && (
-              <Text
-                fontSize={TYPOGRAPHY.sizes.xs}
-                color={COLORS.brand.textMuted}
-                fontStyle="italic"
-                mt={SPACING.scale.xs}
-              >
-                {landingData.hero_caption}
-              </Text>
-            )}
-          </VStack>
-
+          {/* Caption below buttons */}
+          {landingData.hero_caption && (
+            <Text
+              fontSize={TYPOGRAPHY.sizes.xs}
+              color={COLORS.brand.textMuted}
+              fontStyle="italic"
+              mt={SPACING.scale.xs}
+            >
+              {landingData.hero_caption}
+            </Text>
+          )}
         </VStack>
-      </Box>
+      </VStack>
     </Box>
   );
 }
