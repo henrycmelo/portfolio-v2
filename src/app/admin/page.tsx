@@ -24,6 +24,7 @@ import { useAuth } from "@/components/contexts/AuthContext";
 import { SectionWrapper } from "@/design-system/molecules";
 import { AdminLayout } from "@/design-system/templates";
 import { Button } from "@/design-system/atoms/Button/Button";
+import PortfolioChatbot from "@/components/PortfolioChatbot";
 
 export default function AdminPage() {
   const [email, setEmail] = useState("");
@@ -206,11 +207,14 @@ export default function AdminPage() {
   };
 
   return (
-    <AdminLayout
-      currentSection={currentSection}
-      onSectionChange={handleSectionChange}
-    >
-      {renderSection()}
-    </AdminLayout>
+    <>
+      <AdminLayout
+        currentSection={currentSection}
+        onSectionChange={handleSectionChange}
+      >
+        {renderSection()}
+      </AdminLayout>
+      <PortfolioChatbot />
+    </>
   );
 }
