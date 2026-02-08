@@ -226,11 +226,12 @@ export default function CareerTimelineManagement() {
 
       await fetchEntries();
       resetForm();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error saving career entry:', error);
+      const message = error instanceof Error ? error.message : `Failed to ${expandedEntryId ? "update" : "create"} career entry`;
       toaster.create({
         title: "Error",
-        description: error.message || `Failed to ${expandedEntryId ? "update" : "create"} career entry`,
+        description: message,
         type: "error",
         duration: 5000,
       });

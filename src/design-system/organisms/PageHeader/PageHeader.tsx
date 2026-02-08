@@ -34,6 +34,11 @@ export interface PageHeaderProps {
   title: string;
 
   /**
+   * Optional description or subtitle
+   */
+  description?: string;
+
+  /**
    * Action button label
    */
   actionLabel?: string;
@@ -60,6 +65,7 @@ export interface PageHeaderProps {
 
 export const PageHeader = ({
   title,
+  description,
   actionLabel,
   onAction,
   actionIcon,
@@ -71,13 +77,23 @@ export const PageHeader = ({
       mb={SPACING.component.margin.headerBottom}
       align="center"
     >
-      <Text
-        fontSize={{ base: 'lg', md: 'xl' }}
-        fontWeight="bold"
-        color={COLORS.brand.primary}
-      >
-        {title}
-      </Text>
+      <div>
+        <Text
+          fontSize={{ base: 'lg', md: 'xl' }}
+          fontWeight="bold"
+          color={COLORS.brand.primary}
+        >
+          {title}
+        </Text>
+        {description && (
+          <Text
+            fontSize="sm"
+            color={COLORS.brand.textSecondary}
+          >
+            {description}
+          </Text>
+        )}
+      </div>
 
       {actionLabel && onAction && (
         <Button variant={actionVariant} onClick={onAction}>

@@ -20,8 +20,14 @@ import { COLORS, BORDERS, TYPOGRAPHY } from '../../foundations';
 export interface BadgeProps {
   /**
    * Visual style variant
+   * - gold: Gold accent badge for premium/featured items
+   * - primary: Primary brand badge
+   * - success: Success status badge
+   * - warning: Warning status badge
+   * - error: Error status badge
+   * - neutral: Neutral/muted badge
    */
-  variant?: 'primary' | 'success' | 'warning' | 'error' | 'neutral';
+  variant?: 'gold' | 'primary' | 'success' | 'warning' | 'error' | 'neutral';
 
   /**
    * Badge content
@@ -43,27 +49,31 @@ export const Badge = ({
   size = 'sm',
   children,
 }: BadgeProps) => {
-  // Variant styles
+  // Variant styles - Dark theme with gold accents
   const variantStyles = {
+    gold: {
+      bg: COLORS.brand.accent,           // Gold background (#D4AF37)
+      color: '#0D0B09',                  // Dark text on gold
+    },
     primary: {
-      bg: '#dbeafe', // blue.100
-      color: '#1e40af', // blue.800
+      bg: COLORS.brand.bgTertiary,       // Dark elevated background
+      color: COLORS.brand.accent,        // Gold text
     },
     success: {
-      bg: '#d1fae5', // green.100
-      color: '#065f46', // green.800
+      bg: 'rgba(74, 222, 128, 0.15)',    // Semi-transparent success
+      color: COLORS.brand.success,       // Success green
     },
     warning: {
-      bg: '#fef3c7', // yellow.100
-      color: '#92400e', // yellow.800
+      bg: 'rgba(251, 191, 36, 0.15)',    // Semi-transparent warning
+      color: COLORS.brand.warning,       // Warning yellow
     },
     error: {
-      bg: '#fee2e2', // red.100
-      color: '#991b1b', // red.800
+      bg: 'rgba(248, 113, 113, 0.15)',   // Semi-transparent error
+      color: COLORS.brand.error,         // Error red
     },
     neutral: {
-      bg: '#f3f4f6', // gray.100
-      color: '#1f2937', // gray.800
+      bg: COLORS.brand.bgSecondary,      // Dark secondary background
+      color: COLORS.brand.textSecondary, // Muted light text
     },
   };
 

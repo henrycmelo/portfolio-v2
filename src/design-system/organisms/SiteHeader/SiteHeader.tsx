@@ -28,11 +28,11 @@ export default function SiteHeader() {
   
   return (
     <Box
-      bg={COLORS.brand.white}
+      bg={COLORS.brand.bgSecondary}
       px={{ base: SPACING.scale.xs, md: SPACING.component.gap.lg }}
       borderBottom={BORDERS.widths.thin}
       borderBottomStyle={BORDERS.styles.solid}
-      borderColor={COLORS.ui.containerBorder}
+      borderColor={COLORS.brand.border}
       alignContent={"center"}
       justifyItems="stretch"
     >
@@ -41,12 +41,12 @@ export default function SiteHeader() {
           <Text
             fontSize={TYPOGRAPHY.sizes.xl}
             fontWeight={TYPOGRAPHY.weights.bold}
-            color={COLORS.brand.primary}
+            color={COLORS.brand.accent}
           >
             Portfolio Admin Dashboard
           </Text>
         )}
-        <HStack gap={SPACING.scale.sm} color={COLORS.brand.textMuted} fontSize={TYPOGRAPHY.sizes.md}>
+        <HStack gap={SPACING.scale.sm} color={COLORS.brand.textSecondary} fontSize={TYPOGRAPHY.sizes.md}>
           <HStack gap={1}>
             <Icon>
               <IoPin />

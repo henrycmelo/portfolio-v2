@@ -6,31 +6,32 @@ const config = defineConfig({
       colors: {
         ...defaultConfig.theme?.tokens?.colors,
         brand: {
-          
-          50: { value: "#F8F9FA" },  // gray.50
-          100: { value: "#E9ECEF" }, // gray.100  
-          200: { value: "#DEE2E6" }, // gray.200
-          300: { value: "#CED4DA" }, // gray.300
-          400: { value: "#ADB5BD" }, // gray.400
-          500: { value: "#6C757D" }, // gray.500
-          600: { value: "#495057" }, // gray.600
-          700: { value: "#343A40" }, // gray.700
-          800: { value: "#212529" }, // gray.800
-          
-          // Accent colors
-          900: { value: "#107c7c" }, // accent (teal)
-          920: { value: "#0d6a6a" }, // darkAccent
-          950: { value: "#e6f2f2" }, // lightAccent
-          1000: { value: "#b3dddd" }, // mediumAccent
-          
-          // Status colors
-          1100: { value: "#228B67" }, // success (green)
-          1200: { value: "#E0A800" }, // warning (yellow)
-          1300: { value: "#B23A48" }, // error (red)
-          
-          // Additional utility colors
-          1400: { value: "#FFFFFF" }, // pure white
-          1500: { value: "#000000" }, // pure black
+          // Dark + Gold Premium Palette
+          // Primary dark tones (light to dark)
+          50: { value: "#F5F5F0" },    // lightest cream
+          100: { value: "#E8E4E0" },   // off-white
+          200: { value: "#C9C5B9" },   // muted light
+          300: { value: "#8A8682" },   // medium gray
+          400: { value: "#5A5652" },   // dark gray
+          500: { value: "#3A3632" },   // darker gray
+          600: { value: "#2A2622" },   // elevated dark
+          700: { value: "#151310" },   // secondary dark bg
+          800: { value: "#0D0B09" },   // primary background (darkest)
+
+          // Gold accent spectrum
+          900: { value: "#D4AF37" },   // primary gold (classic gold)
+          920: { value: "#B8960C" },   // dark gold (hover/active)
+          950: { value: "#1A1714" },   // gold tinted dark bg
+          1000: { value: "#F4E5B8" },  // light gold (highlights)
+
+          // Status colors (adjusted for dark theme)
+          1100: { value: "#4ADE80" },  // success green
+          1200: { value: "#FBBF24" },  // warning yellow
+          1300: { value: "#F87171" },  // error red
+
+          // Utility colors
+          1400: { value: "#FFFFFF" },  // pure white
+          1500: { value: "#000000" },  // pure black
         },
       },
     },
@@ -38,44 +39,44 @@ const config = defineConfig({
       colors: {
         ...defaultConfig.theme?.semanticTokens?.colors,
         brand: {
-          // Primary colors (your main brand colors)
-          primary: { value: "{colors.brand.800}" },     // #212529 (primary black)
-          secondary: { value: "{colors.brand.600}" },   // #495057 (secondary dark gray)
-          
-          // Background tokens (mapped from your semantic.background)
-          bg: { value: "{colors.brand.50}" },           // primary background
-          bgSecondary: { value: "{colors.brand.100}" }, // secondary background  
-          bgTertiary: { value: "{colors.brand.200}" },  // tertiary background
-          bgButton: { value: "{colors.brand.900}" },    // button background
-          bgAccent: { value: "{colors.brand.950}" },    // light accent background
-          
-          // Text tokens (mapped from your semantic.text)
-          text: { value: "{colors.brand.800}" },        // primary text (#212529)
-          textSecondary: { value: "{colors.brand.600}" }, // secondary text (#495057)
-          textMuted: { value: "{colors.brand.500}" },   // muted text
-          textButton: { value: "{colors.brand.600}" },  // button text
-          textHover: { value: "{colors.brand.300}" },   // hover text
-          textOnDark: { value: "{colors.brand.1400}" }, // white text for dark backgrounds
-          
-          // Border and divider tokens
-          border: { value: "{colors.brand.300}" },      // border color
-          divider: { value: "{colors.brand.100}" },     // divider color
-          
-          // Accent tokens
-          accent: { value: "{colors.brand.900}" },       // main accent (teal)
-          accentDark: { value: "{colors.brand.920}" },   // dark accent
-          accentLight: { value: "{colors.brand.950}" },  // light accent
-          accentMedium: { value: "{colors.brand.1000}" }, // medium accent
-          
-          // Status tokens  
+          // Primary colors (Dark + Gold theme)
+          primary: { value: "{colors.brand.50}" },      // light cream for primary text
+          secondary: { value: "{colors.brand.300}" },   // muted text
+
+          // Background tokens (dark theme)
+          bg: { value: "{colors.brand.800}" },          // primary dark background (#0D0B09)
+          bgSecondary: { value: "{colors.brand.700}" }, // slightly lighter dark (#151310)
+          bgTertiary: { value: "{colors.brand.600}" },  // elevated surfaces
+          bgButton: { value: "{colors.brand.900}" },    // gold button background
+          bgAccent: { value: "{colors.brand.950}" },    // gold-tinted dark bg
+
+          // Text tokens (for dark theme)
+          text: { value: "{colors.brand.50}" },         // primary text - light cream (#F5F5F0)
+          textSecondary: { value: "{colors.brand.200}" }, // secondary text - muted light (#C9C5B9)
+          textMuted: { value: "{colors.brand.300}" },   // muted text
+          textButton: { value: "{colors.brand.800}" },  // dark text on gold buttons
+          textHover: { value: "{colors.brand.900}" },   // gold hover text
+          textOnDark: { value: "{colors.brand.1400}" }, // white text
+
+          // Border and divider tokens (dark theme)
+          border: { value: "{colors.brand.500}" },      // subtle border
+          divider: { value: "{colors.brand.600}" },     // divider color
+
+          // Gold accent tokens
+          accent: { value: "{colors.brand.900}" },       // primary gold (#D4AF37)
+          accentDark: { value: "{colors.brand.920}" },   // dark gold (#B8960C)
+          accentLight: { value: "{colors.brand.1000}" }, // light gold (#F4E5B8)
+          accentMedium: { value: "{colors.brand.900}" }, // medium gold
+
+          // Status tokens
           success: { value: "{colors.brand.1100}" },     // success green
           warning: { value: "{colors.brand.1200}" },     // warning yellow
           error: { value: "{colors.brand.1300}" },       // error red
-          
-          // Interactive states
-          hover: { value: "{colors.brand.100}" },        // hover background
-          active: { value: "{colors.brand.200}" },       // active state
-          focus: { value: "{colors.brand.900}" },        // focus outline
+
+          // Interactive states (dark theme)
+          hover: { value: "{colors.brand.600}" },        // hover background
+          active: { value: "{colors.brand.500}" },       // active state
+          focus: { value: "{colors.brand.900}" },        // gold focus outline
           white: { value: "{colors.brand.1400}" },       // pure white
         },
       },

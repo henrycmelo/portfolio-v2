@@ -58,9 +58,10 @@ export default function ImageUpload({
       // Pass file and preview URL to parent
       onImageSelect(file, objectUrl);
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error selecting image:', error);
-      alert(error.message || 'Failed to select image');
+      const message = error instanceof Error ? error.message : 'Failed to select image';
+      alert(message);
     } finally {
       // Reset input
       if (event.target) {
@@ -120,33 +121,28 @@ export default function ImageUpload({
           display="none"
           id={inputId}
         />
-        <Box
-          as="label"
+        <label
           htmlFor={inputId}
-          cursor="pointer"
-          w="full"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          gap={SPACING.scale.xs}
-          px={SPACING.scale.md}
-          py={SPACING.scale.sm}
-          bg={COLORS.brand.white}
-          color={COLORS.brand.secondary}
-          border={BORDERS.widths.thin}
-          borderColor={COLORS.ui.containerBorder}
-          borderRadius={BORDERS.radius.md}
-          fontSize={TYPOGRAPHY.sizes.sm}
-          fontWeight={TYPOGRAPHY.weights.medium}
-          transition="all 0.2s"
-          _hover={{
-            bg: COLORS.ui.tableRowHoverBg,
-            borderColor: COLORS.brand.accent,
+          style={{
+            cursor: 'pointer',
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px',
+            padding: '12px 16px',
+            backgroundColor: 'var(--chakra-colors-brand-white, #fff)',
+            color: 'var(--chakra-colors-brand-secondary, #666)',
+            border: '1px solid var(--chakra-colors-brand-border, #3A3632)',
+            borderRadius: '8px',
+            fontSize: '14px',
+            fontWeight: 500,
+            transition: 'all 0.2s',
           }}
         >
           {previewUrl ? <IoRefresh /> : <IoCloudUpload />}
           {previewUrl ? 'Replace Image' : label}
-        </Box>
+        </label>
       </Box>
 
       <Text fontSize={TYPOGRAPHY.sizes.xs} color={COLORS.gray[500]}>

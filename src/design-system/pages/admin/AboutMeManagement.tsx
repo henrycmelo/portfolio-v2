@@ -220,11 +220,12 @@ export default function AboutMeManagement() {
       });
       resetForm();
       fetchEntries();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error saving about me data:', error);
+      const message = error instanceof Error ? error.message : 'Failed to update about me data.';
       toaster.create({
         title: 'Error',
-        description: error.message || 'Failed to update about me data.',
+        description: message,
         type: 'error',
         duration: 3000,
       });

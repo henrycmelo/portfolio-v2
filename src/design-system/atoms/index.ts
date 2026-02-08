@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * ATOMS INDEX
  *
@@ -13,3 +15,4 @@ export * from './Text';
 export * from './Input';
 export * from './Textarea';
 export * from './Badge';
+export * from './Motion';

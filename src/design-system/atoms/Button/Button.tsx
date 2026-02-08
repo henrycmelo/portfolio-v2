@@ -57,31 +57,56 @@ export const Button = ({
   children,
   ...rest
 }: ButtonProps) => {
-  // Variant styles
+  // Variant styles - Dark theme with gold accents
   const variantStyles = {
     primary: {
-      bg: COLORS.brand.bgButton,
-      color: COLORS.brand.white,
-      _hover: { bg: COLORS.brand.secondary },
+      bg: COLORS.brand.accent,           // Gold background (#D4AF37)
+      color: COLORS.brand.textButton,    // Dark text on gold
+      _hover: { bg: COLORS.brand.accentDark }, // Darker gold on hover
+      _focus: {
+        boxShadow: `0 0 0 3px ${COLORS.brand.accentLight}`,
+        outline: 'none',
+      },
     },
     secondary: {
-      bg: COLORS.brand.bg,
-      color: COLORS.brand.primary,
+      bg: COLORS.brand.bgSecondary,      // Dark background
+      color: COLORS.brand.text,          // Light text
       border: '1px solid',
-      borderColor: COLORS.brand.divider,
-      _hover: { bg: COLORS.brand.hover },
+      borderColor: COLORS.brand.accent,  // Gold border
+      _hover: {
+        bg: COLORS.brand.hover,
+        borderColor: COLORS.brand.accentLight,
+      },
+      _focus: {
+        boxShadow: `0 0 0 2px ${COLORS.brand.accent}`,
+        outline: 'none',
+      },
     },
     outline: {
       bg: 'transparent',
-      color: COLORS.brand.primary,
+      color: COLORS.brand.accent,        // Gold text
       border: '1px solid',
-      borderColor: COLORS.brand.border,
-      _hover: { bg: COLORS.brand.hover },
+      borderColor: COLORS.brand.accent,  // Gold border
+      _hover: {
+        bg: COLORS.brand.hover,
+        color: COLORS.brand.accentLight,
+      },
+      _focus: {
+        boxShadow: `0 0 0 2px ${COLORS.brand.accent}`,
+        outline: 'none',
+      },
     },
     ghost: {
       bg: 'transparent',
-      color: COLORS.brand.primary,
-      _hover: { bg: COLORS.brand.hover },
+      color: COLORS.brand.text,
+      _hover: {
+        bg: COLORS.brand.hover,
+        color: COLORS.brand.accent,      // Gold text on hover
+      },
+      _focus: {
+        boxShadow: `0 0 0 2px ${COLORS.brand.accent}`,
+        outline: 'none',
+      },
     },
   };
 

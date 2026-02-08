@@ -207,11 +207,12 @@ export default function SidebarManagement() {
       });
       resetForm();
       fetchEntries();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error saving sidebar data:', error);
+      const message = error instanceof Error ? error.message : 'Failed to update sidebar data.';
       toaster.create({
         title: 'Error',
-        description: error.message || 'Failed to update sidebar data.',
+        description: message,
         type: 'error',
         duration: 3000,
       });

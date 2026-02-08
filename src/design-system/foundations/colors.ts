@@ -43,6 +43,11 @@ export const BRAND_COLORS = {
   accentLight: 'brand.accentLight',
   accentMedium: 'brand.accentMedium',
 
+  // Gold-specific tokens
+  goldPrimary: 'brand.accent',      // #D4AF37 - primary gold
+  goldLight: 'brand.accentLight',   // #F4E5B8 - light gold
+  goldDark: 'brand.accentDark',     // #B8960C - dark gold
+
   // Status colors
   success: 'brand.success',
   warning: 'brand.warning',
@@ -55,6 +60,20 @@ export const BRAND_COLORS = {
 
   // Utility
   white: 'brand.white',
+} as const;
+
+// ============================================================================
+// GOLD GRADIENTS
+// ============================================================================
+export const GOLD_GRADIENTS = {
+  // Gold shimmer effect - subtle gradient for premium feel
+  shimmer: 'linear-gradient(135deg, #D4AF37 0%, #F4E5B8 50%, #D4AF37 100%)',
+  // Gold shimmer for text/icons
+  shimmerText: 'linear-gradient(90deg, #D4AF37 0%, #F4E5B8 50%, #D4AF37 100%)',
+  // Subtle gold glow
+  glow: 'radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%)',
+  // Gold border gradient
+  border: 'linear-gradient(135deg, #B8960C 0%, #D4AF37 50%, #F4E5B8 100%)',
 } as const;
 
 // ============================================================================
@@ -75,28 +94,33 @@ export const GRAY_COLORS = {
 
 // ============================================================================
 // SEMANTIC UI COLORS
-// Meaningful names for specific UI elements
+// Meaningful names for specific UI elements (Dark + Gold theme)
 // ============================================================================
 export const UI_COLORS = {
-  // Containers
-  containerBg: BRAND_COLORS.white,
-  containerBorder: BRAND_COLORS.divider,
+  // Page backgrounds (dark theme)
+  background: BRAND_COLORS.bg,
+  backgroundSecondary: BRAND_COLORS.bgSecondary,
 
-  // Tables
-  tableHeaderBg: BRAND_COLORS.bg,
-  tableRowHoverBg: BRAND_COLORS.divider,
+  // Containers (dark backgrounds)
+  containerBg: BRAND_COLORS.bgSecondary,
+  containerBorder: BRAND_COLORS.border,
 
-  // Forms
+  // Tables (dark theme)
+  tableHeaderBg: BRAND_COLORS.bgTertiary,
+  tableRowHoverBg: BRAND_COLORS.hover,
+
+  // Forms (dark theme)
   inputBorder: BRAND_COLORS.border,
-  inputFocus: BRAND_COLORS.focus,
+  inputFocus: BRAND_COLORS.accent,
+  inputBg: BRAND_COLORS.bgTertiary,
 
-  // Placeholders
-  placeholderBg: GRAY_COLORS[100],
-  placeholderText: GRAY_COLORS[300],
-  placeholderBorder: GRAY_COLORS[200],
+  // Placeholders (dark theme)
+  placeholderBg: BRAND_COLORS.bgTertiary,
+  placeholderText: BRAND_COLORS.textMuted,
+  placeholderBorder: BRAND_COLORS.border,
 
   // Alerts
-  infoBg: BRAND_COLORS.accentLight,
+  infoBg: BRAND_COLORS.bgAccent,
   infoText: BRAND_COLORS.accent,
 } as const;
 
@@ -107,4 +131,5 @@ export const COLORS = {
   brand: BRAND_COLORS,
   gray: GRAY_COLORS,
   ui: UI_COLORS,
+  gradients: GOLD_GRADIENTS,
 } as const;

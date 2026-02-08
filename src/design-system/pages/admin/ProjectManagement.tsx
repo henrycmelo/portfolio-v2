@@ -297,11 +297,12 @@ export default function ProjectManagement() {
 
       await fetchProjects();
       resetForm();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error saving project:', error);
+      const message = error instanceof Error ? error.message : `Failed to ${expandedProjectId ? "update" : "create"} project`;
       toaster.create({
         title: "Error",
-        description: error.message || `Failed to ${expandedProjectId ? "update" : "create"} project`,
+        description: message,
         type: "error",
         duration: 5000,
       });

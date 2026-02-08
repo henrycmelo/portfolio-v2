@@ -13,10 +13,12 @@ import {
 import {
   ProjectManagement,
   CareerTimelineManagement,
+  CaseStudiesManagement,
   LandingPageManagement,
   SidebarManagement,
   AboutMeManagement,
   ContactMessagesManagement,
+  ReviewsManagement,
   DesignSystemStorybook
 } from "@/design-system/pages/admin";
 import { toaster } from "@/components/ui/toaster";
@@ -24,7 +26,6 @@ import { useAuth } from "@/components/contexts/AuthContext";
 import { SectionWrapper } from "@/design-system/molecules";
 import { AdminLayout } from "@/design-system/templates";
 import { Button } from "@/design-system/atoms/Button/Button";
-import PortfolioChatbot from "@/components/PortfolioChatbot";
 
 export default function AdminPage() {
   const [email, setEmail] = useState("");
@@ -61,11 +62,11 @@ export default function AdminPage() {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        bg="gray.50"
+        bg="brand.bg"
       >
         <VStack gap={4}>
-          <Spinner size="xl" color="brand.primary" />
-          <Text color="brand.secondary">Loading...</Text>
+          <Spinner size="xl" color="brand.accent" />
+          <Text color="brand.textSecondary">Loading...</Text>
         </VStack>
       </Box>
     );
@@ -78,27 +79,33 @@ export default function AdminPage() {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        bg="gray.50"
+        bg="brand.bg"
       >
         <Box
-          bg="brand.white"
+          bg="brand.bgSecondary"
           p={8}
-          borderRadius="md"
-          boxShadow="0 25px 50px -12px rgba(0, 0, 0, 0.15)"
-          borderColor="brand.divider"
+          borderRadius="lg"
+          boxShadow="0 25px 50px -12px rgba(0, 0, 0, 0.5)"
+          border="1px solid"
+          borderColor="brand.border"
           w="full"
           maxW="md"
         >
           <VStack gap={6}>
-            <Text fontSize="2xl" fontWeight="bold" color="brand.primary">
-              Admin Dashboard
-            </Text>
+            <VStack gap={2}>
+              <Text fontSize="2xl" fontWeight="bold" color="brand.accent">
+                Admin Dashboard
+              </Text>
+              <Text fontSize="sm" color="brand.textSecondary">
+                Sign in to manage your portfolio
+              </Text>
+            </VStack>
 
             <form onSubmit={handleLogin} style={{ width: "100%" }}>
-              <VStack gap={4} w="full" color={"brand.secondary"}>
+              <VStack gap={4} w="full">
                 <Field.Root required>
-                  <Field.Label>
-                    Email <Field.RequiredIndicator />
+                  <Field.Label color="brand.text">
+                    Email <Field.RequiredIndicator color="brand.error" />
                   </Field.Label>
                   <Input
                     type="email"
@@ -106,12 +113,21 @@ export default function AdminPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter admin email"
                     p={2}
+                    bg="brand.bgTertiary"
+                    border="1px solid"
+                    borderColor="brand.border"
+                    color="brand.text"
+                    _placeholder={{ color: "brand.textMuted" }}
+                    _focus={{
+                      borderColor: "brand.accent",
+                      boxShadow: "0 0 0 1px var(--chakra-colors-brand-accent)",
+                    }}
                   />
                 </Field.Root>
 
                 <Field.Root required>
-                  <Field.Label>
-                    Password <Field.RequiredIndicator />
+                  <Field.Label color="brand.text">
+                    Password <Field.RequiredIndicator color="brand.error" />
                   </Field.Label>
                   <Input
                     type="password"
@@ -119,17 +135,33 @@ export default function AdminPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter admin password"
                     p={2}
+                    bg="brand.bgTertiary"
+                    border="1px solid"
+                    borderColor="brand.border"
+                    color="brand.text"
+                    _placeholder={{ color: "brand.textMuted" }}
+                    _focus={{
+                      borderColor: "brand.accent",
+                      boxShadow: "0 0 0 1px var(--chakra-colors-brand-accent)",
+                    }}
                   />
                 </Field.Root>
 
                 {error && (
-                  <Alert.Root status="error">
+                  <Alert.Root status="error" bg="brand.error" color="white" borderRadius="md">
                     <Alert.Indicator />
                     <Alert.Title>{error}</Alert.Title>
                   </Alert.Root>
                 )}
 
-                <Button type="submit" w="full" disabled={isLoggingIn}>
+                <Button
+                  type="submit"
+                  w="full"
+                  disabled={isLoggingIn}
+                  bg="brand.accent"
+                  color="brand.textButton"
+                  _hover={{ bg: "brand.accentDark" }}
+                >
                   {isLoggingIn ? (
                     <>
                       <Spinner size={"sm"} /> Logging in
@@ -185,6 +217,18 @@ export default function AdminPage() {
             <CareerTimelineManagement />
           </SectionWrapper>
         );
+      case 'casestudies':
+        return (
+          <SectionWrapper id="admin-case-studies">
+            <CaseStudiesManagement />
+          </SectionWrapper>
+        );
+      case 'reviews':
+        return (
+          <SectionWrapper id="admin-reviews">
+            <ReviewsManagement />
+          </SectionWrapper>
+        );
       case 'messages':
         return (
           <SectionWrapper id="admin-contact-messages">
@@ -207,14 +251,11 @@ export default function AdminPage() {
   };
 
   return (
-    <>
-      <AdminLayout
-        currentSection={currentSection}
-        onSectionChange={handleSectionChange}
-      >
-        {renderSection()}
-      </AdminLayout>
-      <PortfolioChatbot />
-    </>
+    <AdminLayout
+      currentSection={currentSection}
+      onSectionChange={handleSectionChange}
+    >
+      {renderSection()}
+    </AdminLayout>
   );
 }

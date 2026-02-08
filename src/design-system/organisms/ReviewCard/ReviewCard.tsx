@@ -47,13 +47,17 @@ const ReviewCard = ({ review }: { review: Review }) => {
       h="auto"
       py={SPACING.component.padding.card.y}
       px={SPACING.component.padding.card.x}
-      bg={COLORS.brand.white}
-      
+      bg={COLORS.brand.bgSecondary}
       border="1px solid"
-      borderColor={COLORS.ui.containerBorder}
+      borderColor={COLORS.brand.border}
       borderRadius={BORDERS.radius.md}
       overflow="hidden"
       position="relative"
+      transition="all 0.3s ease-in-out"
+      _hover={{
+        borderColor: COLORS.brand.accent,
+        boxShadow: '0 4px 20px rgba(212, 175, 55, 0.1)',
+      }}
 >
       <Card.Body>
         {/* Quote icon */}
@@ -61,7 +65,8 @@ const ReviewCard = ({ review }: { review: Review }) => {
           position="absolute"
           top={SPACING.component.gap.md}
           right={SPACING.component.gap.md}
-          color={COLORS.brand.bgAccent}
+          color={COLORS.brand.accent}
+          opacity={0.3}
           fontSize={TYPOGRAPHY.sizes['2xl']}
         >
           <IoMdQuote />
@@ -72,11 +77,12 @@ const ReviewCard = ({ review }: { review: Review }) => {
           <Box flex="1" overflow="hidden">
             <Text
               fontSize={TYPOGRAPHY.sizes.md}
-              color={COLORS.brand.textMuted}
+              color={COLORS.brand.textSecondary}
               lineHeight={TYPOGRAPHY.lineHeights.relaxed}
               mb={SPACING.scale.xs}
+              fontStyle="italic"
             >
-              "{displayContent || "No content available"}"
+              &quot;{displayContent || "No content available"}&quot;
             </Text>
             {shouldTruncate && (
               <Button
@@ -87,7 +93,7 @@ const ReviewCard = ({ review }: { review: Review }) => {
                 p={0}
                 h="auto"
                 minH="auto"
-                _hover={{ color: COLORS.brand.primary }}
+                _hover={{ color: COLORS.brand.accentLight }}
                 onClick={() => setIsExpanded(!isExpanded)}
               >
                 {isExpanded ? "Show less" : "Show more"}
@@ -105,13 +111,13 @@ const ReviewCard = ({ review }: { review: Review }) => {
               {review.name}
             </Text>
 
-            <Text fontSize={TYPOGRAPHY.sizes.sm} color={COLORS.brand.secondary}>
+            <Text fontSize={TYPOGRAPHY.sizes.sm} color={COLORS.brand.textSecondary}>
               {review.role}
             </Text>
 
             <Text
               fontSize={TYPOGRAPHY.sizes.sm}
-              color={COLORS.brand.secondary}
+              color={COLORS.brand.textMuted}
               mb={SPACING.scale.xs}
             >
               {review.company}
@@ -126,7 +132,7 @@ const ReviewCard = ({ review }: { review: Review }) => {
             >
               <Icon
                 size={"md"}
-                color={COLORS.brand.secondary}
+                color={COLORS.brand.textSecondary}
                 _hover={{ color: COLORS.brand.accent }}
               >
                 <IoLogoLinkedin />

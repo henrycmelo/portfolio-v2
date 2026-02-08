@@ -22,7 +22,7 @@ import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { sidebarAPI, SidebarData } from "@/api/sidebarAPI";
 
 interface SidebarProps {
-  menuItems?: Array<{ icon: any; label: string; href: string }>;
+  menuItems?: Array<{ icon: React.ComponentType; label: string; href: string }>;
   showProfile?: boolean;
   showSocials?: boolean;
   currentSection?: string;
@@ -127,10 +127,10 @@ export default function Sidebar({
     <Box
       w={{ base: "60px", md: shouldShowSidebar ? "60px" : "300px" }}
       h="100vh"
-      bg={COLORS.brand.white}
+      bg={COLORS.brand.bgSecondary}
       borderRight={BORDERS.widths.thin}
       borderRightStyle={BORDERS.styles.solid}
-      borderColor={COLORS.ui.containerBorder}
+      borderColor={COLORS.brand.border}
       position="relative"
     >
       <Box
@@ -159,10 +159,10 @@ export default function Sidebar({
                 <Avatar.Image src={sidebarData.avatar_url} />
               </Avatar.Root>
               <Box display={{ base: "none", md: shouldShowSidebar ? "none" : "block" }}>
-                <Text color={COLORS.brand.primary} fontSize={TYPOGRAPHY.sizes.sm}>
+                <Text color={COLORS.brand.text} fontSize={TYPOGRAPHY.sizes.sm}>
                   {sidebarData.name}
                 </Text>
-                <Text fontSize={TYPOGRAPHY.sizes.xs} color={COLORS.brand.textMuted}>
+                <Text fontSize={TYPOGRAPHY.sizes.xs} color={COLORS.brand.textSecondary}>
                   {sidebarData.subtitle}
                 </Text>
               </Box>
@@ -190,27 +190,55 @@ export default function Sidebar({
 
           const menuButton = (
             <Box
+              position="relative"
               borderRadius={BORDERS.radius.md}
-              bg={isActive ? COLORS.brand.accent : "transparent"}
-              _hover={{ bg: isActive ? COLORS.brand.accent : COLORS.brand.divider }}
+              overflow="hidden"
               onClick={handleClick}
+              cursor="pointer"
+              transition="all 0.3s ease"
+              bg={isActive ? `${COLORS.brand.accent}20` : "transparent"}
+              _hover={{
+                bg: isActive ? `${COLORS.brand.accent}30` : COLORS.brand.hover,
+                transform: "translateX(4px)",
+              }}
             >
+              {/* Gold Indicator Bar */}
+              <Box
+                position="absolute"
+                left={0}
+                top="10%"
+                bottom="10%"
+                width="3px"
+                bg={isActive ? COLORS.brand.accent : "transparent"}
+                borderRadius="0 4px 4px 0"
+                boxShadow={isActive ? `0 0 8px ${COLORS.brand.accent}` : "none"}
+                transition="all 0.3s ease"
+              />
+
               <HStack
+                position="relative"
+                zIndex={1}
                 px={{ base: SPACING.scale.xs, md: SPACING.component.gap.lg }}
                 py={{ base: SPACING.component.gap.md, md: SPACING.scale.sm }}
-                color={isActive ? COLORS.brand.white : COLORS.brand.secondary}
-                cursor="pointer"
                 gap={SPACING.scale.sm}
                 justify={{ base: "center", md: shouldShowSidebar? "center":"flex-start" }}
               >
-                <Icon fontSize="20px">
+                <Icon
+                  fontSize="20px"
+                  color={isActive ? COLORS.brand.accent : COLORS.brand.textSecondary}
+                  transition="color 0.3s ease"
+                >
                   <item.icon />
                 </Icon>
                 <Text
                   fontSize={TYPOGRAPHY.sizes.sm}
-                  fontWeight={isActive ? TYPOGRAPHY.weights.medium : TYPOGRAPHY.weights.normal}
+                  fontWeight={isActive ? TYPOGRAPHY.weights.semibold : TYPOGRAPHY.weights.normal}
                   display={{ base: "none", md: shouldShowSidebar? "none":"block" }}
-                  color={isActive ? COLORS.brand.white : COLORS.brand.secondary}
+                  color={isActive ? COLORS.brand.accent : COLORS.brand.textSecondary}
+                  transition="all 0.3s ease"
+                  css={isActive ? {
+                    textShadow: `0 0 10px ${COLORS.brand.accent}40`,
+                  } : undefined}
                 >
                   {item.label}
                 </Text>
@@ -255,7 +283,7 @@ export default function Sidebar({
           right={0}
           borderTop={BORDERS.widths.thin}
           borderTopStyle={BORDERS.styles.solid}
-          borderColor={COLORS.ui.containerBorder}
+          borderColor={COLORS.brand.border}
           p={{ base: SPACING.scale.xs, md: SPACING.scale.sm }}
         >
           <Stack
@@ -276,8 +304,13 @@ export default function Sidebar({
                   >
                     <Icon
                       size={"md"}
-                      color={COLORS.brand.secondary}
-                      _hover={{color: COLORS.brand.accent}}
+                      color={COLORS.brand.textSecondary}
+                      transition="all 0.3s ease"
+                      _hover={{
+                        color: COLORS.brand.accent,
+                        transform: "scale(1.2) translateY(-2px)",
+                        filter: `drop-shadow(0 0 6px ${COLORS.brand.accent})`,
+                      }}
                     >
                       <IconComponent />
                     </Icon>

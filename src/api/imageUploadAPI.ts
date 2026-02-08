@@ -12,7 +12,7 @@ import { supabase } from '@/lib/supabase';
 export async function uploadImageToSupabase(
   file: File,
   folderName: string,
-  imageType: 'logo' | 'mockup' | 'image' | 'avatar'
+  imageType: 'logo' | 'mockup' | 'image' | 'avatar' | 'thumbnail'
 ): Promise<string> {
   try {
     // Sanitize folder name for use in file path
@@ -66,9 +66,10 @@ export async function uploadImageToSupabase(
 
     return publicUrl;
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error uploading image to Supabase:', error);
-    throw new Error(error.message || 'Failed to upload image');
+    const message = error instanceof Error ? error.message : 'Failed to upload image';
+    throw new Error(message);
   }
 }
 
@@ -104,8 +105,9 @@ export async function deleteImageFromSupabase(imageUrl: string): Promise<void> {
       throw error;
     }
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error deleting image from Supabase:', error);
-    throw new Error(error.message || 'Failed to delete image');
+    const message = error instanceof Error ? error.message : 'Failed to delete image';
+    throw new Error(message);
   }
 }

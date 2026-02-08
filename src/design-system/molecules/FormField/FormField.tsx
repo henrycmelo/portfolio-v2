@@ -96,12 +96,13 @@ export const FormField = ({
   return (
     <Field.Root invalid={!!error}>
       <Field.Label
-        color={COLORS.brand.primary}
+        color={COLORS.brand.text}            // Light text visible on dark background
         mb={SPACING.form.labelMarginBottom}
+        fontWeight="medium"
       >
         {label}
         {required && (
-          <span style={{ color: COLORS.brand.error }}> *</span>
+          <span style={{ color: '#F87171' }}> *</span>  // Error red for required indicator
         )}
       </Field.Label>
 

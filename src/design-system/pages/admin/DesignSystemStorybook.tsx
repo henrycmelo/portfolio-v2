@@ -974,7 +974,7 @@ export default function DesignSystemStorybook() {
                     color={COLORS.brand.secondary}
                     fontWeight={TYPOGRAPHY.weights.normal}
                   >
-                    Hello, I'm
+                    Hello, I&apos;m
                   </Text>
                   <Text
                     fontSize={{
@@ -1002,7 +1002,7 @@ export default function DesignSystemStorybook() {
                       See my work
                     </Button>
                     <Button variant="outline" icon={IoChatbubble}>
-                      Let's talk
+                      Let&apos;s talk
                     </Button>
                   </HStack>
                 </VStack>

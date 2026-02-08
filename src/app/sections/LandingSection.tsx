@@ -2,18 +2,20 @@
 
 import { useState, useEffect } from "react";
 import { Box, HStack, VStack } from "@chakra-ui/react";
-import { Text } from "@/design-system/atoms";
+import { Text, FadeIn, TextReveal, GoldGradientText, MagneticButton } from "@/design-system/atoms";
 import { COLORS, SPACING, BORDERS, SHADOWS, TYPOGRAPHY, SIZES } from "@/design-system/foundations";
 import {
   IoArrowForward,
   IoChatbubble,
 } from "react-icons/io5";
 import { landingAPI, LandingPageData } from "@/api/landingAPI";
-import {Button} from "@/design-system/atoms/Button/Button";
+import { Button } from "@/design-system/atoms/Button/Button";
+import { usePrefersReducedMotion } from "@/hooks/useScrollAnimation";
 
 export default function LandingSection() {
   const [landingData, setLandingData] = useState<LandingPageData | null>(null);
   const [loading, setLoading] = useState(true);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     const fetchLandingData = async () => {
@@ -36,6 +38,30 @@ export default function LandingSection() {
   if (!landingData) {
     return null;
   }
+
+  // Render headline with or without animation based on preference
+  const renderHeadline = () => {
+    const headlineContent = landingData.hero_title;
+
+    if (prefersReducedMotion) {
+      return (
+        <GoldGradientText as="h1">
+          {headlineContent}
+        </GoldGradientText>
+      );
+    }
+
+    return (
+      <TextReveal
+        type="word"
+        staggerDelay={0.08}
+        delay={0.3}
+        as="h1"
+      >
+        {headlineContent}
+      </TextReveal>
+    );
+  };
 
   return (
     <Box
@@ -62,22 +88,24 @@ export default function LandingSection() {
         align="flex-start"
         w="100%"
       >
-        {/* Greeting */}
-        <Text
-          fontSize={{
-            base: TYPOGRAPHY.sizes.md,
-            md: TYPOGRAPHY.sizes['xl'],
-            lg: TYPOGRAPHY.sizes['2xl']
-          }}
-          color={COLORS.brand.secondary}
-          fontWeight={TYPOGRAPHY.weights.normal}
-          w="100%"
-        >
-          {landingData.hero_subtitle}
-        </Text>
+        {/* Greeting - animated fade in */}
+        <FadeIn direction="up" delay={0} duration={0.5}>
+          <Text
+            fontSize={{
+              base: TYPOGRAPHY.sizes.md,
+              md: TYPOGRAPHY.sizes['xl'],
+              lg: TYPOGRAPHY.sizes['2xl']
+            }}
+            color={COLORS.brand.secondary}
+            fontWeight={TYPOGRAPHY.weights.normal}
+            w="100%"
+          >
+            {landingData.hero_subtitle}
+          </Text>
+        </FadeIn>
 
-        {/* Main Headline */}
-        <Text
+        {/* Main Headline - with text reveal and gold gradient */}
+        <Box
           fontSize={{
             base: TYPOGRAPHY.sizes['3xl'],
             md: TYPOGRAPHY.sizes['5xl'],
@@ -85,55 +113,69 @@ export default function LandingSection() {
           }}
           fontWeight={TYPOGRAPHY.weights.bold}
           lineHeight={TYPOGRAPHY.lineHeights.tight}
-          color={COLORS.brand.primary}
           w="100%"
           wordBreak="break-word"
           overflowWrap="break-word"
-        >
-          {landingData.hero_title}
-        </Text>
-
-        {/* Description */}
-        <Text
-          fontSize={{
-            base: TYPOGRAPHY.sizes.sm,
-            md: TYPOGRAPHY.sizes.md
+          css={{
+            // Gold gradient text styling
+            background: 'linear-gradient(135deg, #B8962F 0%, #D4AF37 30%, #F4E5B8 50%, #D4AF37 70%, #B8962F 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
           }}
-          color={COLORS.brand.textMuted}
-          lineHeight={TYPOGRAPHY.lineHeights.relaxed}
-          maxW="2xl"
-          w="100%"
         >
-          {landingData.hero_paragraph}
-        </Text>
+          {renderHeadline()}
+        </Box>
 
-        {/* Action Buttons */}
-        <VStack gap={SPACING.scale.sm} align="flex-start" w="100%">
-          <HStack
-            gap={SPACING.component.gap.md}
-            flexWrap="wrap"
+        {/* Description - animated fade in */}
+        <FadeIn direction="up" delay={0.5} duration={0.5}>
+          <Text
+            fontSize={{
+              base: TYPOGRAPHY.sizes.sm,
+              md: TYPOGRAPHY.sizes.md
+            }}
+            color={COLORS.brand.textMuted}
+            lineHeight={TYPOGRAPHY.lineHeights.relaxed}
+            maxW="2xl"
             w="100%"
           >
-              <Button variant="primary" icon={IoArrowForward}>
-                See my work
-              </Button>
-              <Button variant="outline" icon={IoChatbubble}>
-                Let's talk
-              </Button>
+            {landingData.hero_paragraph}
+          </Text>
+        </FadeIn>
+
+        {/* Action Buttons - animated fade in */}
+        <FadeIn direction="up" delay={0.7} duration={0.5}>
+          <VStack gap={SPACING.scale.sm} align="flex-start" w="100%">
+            <HStack
+              gap={SPACING.component.gap.md}
+              flexWrap="wrap"
+              w="100%"
+            >
+              <MagneticButton distance={6}>
+                <Button variant="primary" icon={IoArrowForward}>
+                  See my work
+                </Button>
+              </MagneticButton>
+              <MagneticButton distance={6}>
+                <Button variant="outline" icon={IoChatbubble}>
+                  Let&apos;s talk
+                </Button>
+              </MagneticButton>
             </HStack>
 
-          {/* Caption below buttons */}
-          {landingData.hero_caption && (
-            <Text
-              fontSize={TYPOGRAPHY.sizes.xs}
-              color={COLORS.brand.textMuted}
-              fontStyle="italic"
-              mt={SPACING.scale.xs}
-            >
-              {landingData.hero_caption}
-            </Text>
-          )}
-        </VStack>
+            {/* Caption below buttons */}
+            {landingData.hero_caption && (
+              <Text
+                fontSize={TYPOGRAPHY.sizes.xs}
+                color={COLORS.brand.textMuted}
+                fontStyle="italic"
+                mt={SPACING.scale.xs}
+              >
+                {landingData.hero_caption}
+              </Text>
+            )}
+          </VStack>
+        </FadeIn>
       </VStack>
     </Box>
   );

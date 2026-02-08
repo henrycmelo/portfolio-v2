@@ -34,21 +34,22 @@ export const Input = ({
   return (
     <ChakraInput
       width="100%"
-      borderColor={COLORS.ui.inputBorder}
+      bg={COLORS.brand.bgSecondary}        // Dark background (#151310)
+      borderColor={COLORS.brand.border}
       borderRadius={BORDERS.radius.md}
+      color={COLORS.brand.text}            // Light text for readability
       _placeholder={{
-        color: COLORS.ui.placeholderText,
+        color: COLORS.brand.textMuted,     // Visible but muted placeholder
       }}
       _focus={{
-        borderColor: COLORS.ui.inputFocus,
-        boxShadow: `0 0 0 1px ${COLORS.ui.inputFocus}`,
+        borderColor: COLORS.brand.accent,  // Gold border on focus
+        boxShadow: `0 0 0 1px ${COLORS.brand.accent}`, // Gold glow
       }}
       _hover={{
-        borderColor: COLORS.brand.border,
+        borderColor: COLORS.brand.accentDark, // Darker gold on hover
       }}
       px={SPACING.component.padding.input.x}
       py={SPACING.component.padding.input.y}
-      color={COLORS.brand.textMuted}
       {...rest}
     />
   );
